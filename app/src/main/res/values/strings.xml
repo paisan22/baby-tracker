@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BabyTracker</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_bio_screen">BioScreen</string>
+</resources>
