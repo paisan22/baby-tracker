@@ -16,8 +16,6 @@ import javax.inject.Inject
 class BioViewModel @Inject constructor(
     private val bioRepo: IBioRepo
 ): ViewModel() {
-    private val TAG = "BioViewModel"
-
     var uiState by mutableStateOf(BioScreenUiState())
         private set
 
@@ -46,12 +44,6 @@ class BioViewModel @Inject constructor(
                 name = name
             ),
             hasUpdates = true
-        )
-    }
-
-    fun showDatePicker(show: Boolean) {
-        uiState = uiState.copy(
-            showDatePicker = show
         )
     }
 
