@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import nl.paisan.babytracker.ui.layout.DefaultLayout
 import nl.paisan.babytracker.ui.screen.ActvitivyScreen
-import nl.paisan.babytracker.ui.screen.BioScreen
+import nl.paisan.babytracker.ui.screen.bio.BioScreen
 
 @Composable
 fun SetupNavGraph(navHostController: NavHostController) {
@@ -18,7 +18,7 @@ fun SetupNavGraph(navHostController: NavHostController) {
             route = Destinations.BIO_ROUTE,
             content = {
                 DefaultLayout(screen = Destinations.BIO_ROUTE, content = {
-                    BioScreen(navHostController = navHostController)
+                    BioScreen()
                 },
                 navHostController = navHostController)
             }
