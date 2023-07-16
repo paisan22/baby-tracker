@@ -9,7 +9,6 @@ data class BioScreenUiState (
     val newBio: BioUiState = BioUiState(),
 
     val hasUpdates: Boolean = false,
-    val showDatePicker: Boolean = false,
 )
 
 data class BioUiState(
