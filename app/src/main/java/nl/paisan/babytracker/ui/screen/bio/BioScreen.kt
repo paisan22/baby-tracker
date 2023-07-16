@@ -39,6 +39,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import nl.paisan.babytracker.domain.enums.Gender
+import nl.paisan.babytracker.ui.screen.ScreenWrapper
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -46,11 +47,11 @@ import java.util.Date
 fun BioScreen(
     vm: BioViewModel = hiltViewModel()
 ) {
-    if(vm.uiState.isLoading) {
-        // TODO: add loading state
-        Text(text = "Loading...")
-    } else {
-        val nameValue = remember { mutableStateOf(TextFieldValue(vm.uiState.bio.name)) }
+
+    ScreenWrapper(isLoading = vm.uiState.isLoading) {
+        val nameValue
+                = remember { mutableStateOf(TextFieldValue(vm.uiState.bio.name)) }
+
         Column {
             // name
             // TODO: extract to common
