@@ -1,10 +1,12 @@
 package nl.paisan.babytracker.ui.screen.bio
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -21,6 +23,8 @@ import nl.paisan.babytracker.ui.screen.ScreenWrapper
 fun BioScreen(
     vm: BioViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     ScreenWrapper(isLoading = vm.uiState.isLoading) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -68,7 +72,13 @@ fun BioScreen(
             // save button
             BTbutton(
                 name = stringResource(R.string.action_save),
-                onClick = { vm.onSave() },
+                onClick = {
+                    vm.onSave()
+
+                    Toast
+                        .makeText(context, "Bio updated!", Toast.LENGTH_SHORT)
+                        .show()
+                          },
                 enabled = vm.uiState.hasUpdates
             )
         }

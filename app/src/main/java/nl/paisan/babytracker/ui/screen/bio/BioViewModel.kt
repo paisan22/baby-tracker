@@ -91,7 +91,7 @@ class BioViewModel @Inject constructor(
                         id = bio.id,
                         name = bio.name,
                         birthday = bio.birthday,
-                        gender = bio.gender,
+                        gender = bio.gender?: Gender.Boy,
                         length = bio.firstLength,
                         weight = bio.firstWeight
                     )

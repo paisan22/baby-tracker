@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.data
+package nl.paisan.babytracker.data.repositories
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers

@@ -9,8 +9,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import nl.paisan.babytracker.data.BabyTrackerDB
 import nl.paisan.babytracker.data.dao.BioDao
+import nl.paisan.babytracker.data.dao.BottleLogDao
+import nl.paisan.babytracker.data.dao.BreastLogDao
+import nl.paisan.babytracker.data.dao.NutritionLogDao
 import nl.paisan.babytracker.data.migrations.MigrationFrom1To2
 import nl.paisan.babytracker.data.migrations.MigrationFrom2To3
+import nl.paisan.babytracker.data.migrations.MigrationFrom3To4
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -18,6 +22,18 @@ object DaoModule {
     @Provides
     fun provideBioDao(database: BabyTrackerDB): BioDao {
         return database.bioDao()
+    }
+    @Provides
+    fun provideNuttritionLogDao(database: BabyTrackerDB): NutritionLogDao {
+        return database.nuttrionLogDao()
+    }
+    @Provides
+    fun provideBreastLogDao(database: BabyTrackerDB): BreastLogDao {
+        return database.breastLoogDao()
+    }
+    @Provides
+    fun provideBottleLogDao(database: BabyTrackerDB): BottleLogDao {
+        return database.bottleLogDao()
     }
 
     @Provides
@@ -31,7 +47,8 @@ object DaoModule {
         )
             .addMigrations(
                 MigrationFrom1To2(),
-                MigrationFrom2To3()
+                MigrationFrom2To3(),
+                MigrationFrom3To4()
             )
             .build()
     }
