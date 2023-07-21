@@ -16,12 +16,12 @@ import nl.paisan.babytracker.domain.commands.AddBreastLogCommand
 import nl.paisan.babytracker.domain.repositories.INutritionRepo
 import javax.inject.Inject
 
-class NutritionRepository @Inject constructor(
+class NutritionRepo @Inject constructor(
     private val nutritionLogDao: NutritionLogDao,
     private val breastLogDao: BreastLogDao,
     private val bottleLogDao: BottleLogDao
 ) : INutritionRepo {
-    private val TAG = "NutritionRepository"
+    private val TAG = "NutritionRepo"
 
     override val getAllLogs: Flow<List<NutritionLogWithDetails>>
         get() = nutritionLogDao.getAllNutritionLogs()

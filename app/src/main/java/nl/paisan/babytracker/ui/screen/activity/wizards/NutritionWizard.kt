@@ -55,37 +55,36 @@ fun NutritionWizard(
                 ))
             }
             NutritionWizardSteps.LeftOrRightBreast -> {
-                WizardStep(cards = listOf<@Composable () -> Unit>(
-                    {
-                        WizardStepCard(onClick = {
-                            uiState = uiState.copy(
-                                currentStep = NutritionWizardSteps.BreastFeedingStart,
-                                breastSide = BreastSide.Left
-                            )
-                        }, text = stringResource(R.string.noun_left_breast))
-                    },
-                    {
-                        WizardStepCard(onClick = {
-                            uiState = uiState.copy(
-                                currentStep = NutritionWizardSteps.BreastFeedingStart,
-                                breastSide = BreastSide.Right
-                            )
-                        }, text = stringResource(R.string.noun_right_breast))
-                    },
-                    {
-                        if(lastBreastLog != null) {
-                            BTtemporalData(
-                                start = lastBreastLog.nutritionLog.startTime,
-                                end = lastBreastLog.nutritionLog.endTime
-                            )
+                    WizardStep(cards = listOf<@Composable () -> Unit>(
+                        {
+                            WizardStepCard(onClick = {
+                                uiState = uiState.copy(
+                                    currentStep = NutritionWizardSteps.BreastFeedingStart,
+                                    breastSide = BreastSide.Left
+                                )
+                            }, text = stringResource(R.string.noun_left_breast))
+                        },
+                        {
+                            WizardStepCard(onClick = {
+                                uiState = uiState.copy(
+                                    currentStep = NutritionWizardSteps.BreastFeedingStart,
+                                    breastSide = BreastSide.Right
+                                )
+                            }, text = stringResource(R.string.noun_right_breast))
+                        }, {
+                            if(lastBreastLog != null) {
+                                BTtemporalData(
+                                    start = lastBreastLog.nutritionLog.startTime,
+                                    end = lastBreastLog.nutritionLog.endTime
+                                )
 
-                            val side = stringResource(R.string.noun_side)
-                            Text("$side: ${lastBreastLog.breastLog?.breastSide?.name}")
-                        } else {
-                            Text(stringResource(R.string.sentence_breast_not_given_earlier))
+                                val side = stringResource(R.string.noun_side)
+                                Text("$side: ${lastBreastLog.breastLog?.breastSide?.name}")
+                            } else {
+                                Text(stringResource(R.string.sentence_breast_not_given_earlier))
+                            }
                         }
-                    }
-                ))
+                    ))
             }
             NutritionWizardSteps.BreastFeedingStart -> {
                 val notification =

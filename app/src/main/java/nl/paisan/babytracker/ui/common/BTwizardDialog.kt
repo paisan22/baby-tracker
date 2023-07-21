@@ -1,10 +1,13 @@
 package nl.paisan.babytracker.ui.common
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,8 +25,7 @@ fun BTwizardDialog(
 ) {
     AlertDialog(onDismissRequest = { onClose() }) {
         Surface(modifier = Modifier
-            .fillMaxWidth()
-            .height(750.dp),
+            .fillMaxSize(),
         shape = MaterialTheme.shapes.large,
         tonalElevation = AlertDialogDefaults.TonalElevation
         ) {

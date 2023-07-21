@@ -37,4 +37,6 @@
     <string name="hh_mm_ss">HH:mm:ss</string>
     <string name="language">nl</string>
     <string name="mm_ss">mm:ss</string>
+    <string name="sentence_rest_activity_started">Rest activity started!</string>
+    <string name="action_activity_added">Activity added!</string>
 </resources>

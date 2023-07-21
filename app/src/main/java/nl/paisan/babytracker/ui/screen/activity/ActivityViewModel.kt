@@ -15,24 +15,19 @@ import nl.paisan.babytracker.domain.enums.ActivityType
 import nl.paisan.babytracker.domain.enums.BottleType
 import nl.paisan.babytracker.domain.enums.BreastSide
 import nl.paisan.babytracker.domain.repositories.INutritionRepo
+import nl.paisan.babytracker.domain.repositories.IRestRepo
 import javax.inject.Inject
 
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
-    private val nutritionRepo: INutritionRepo
+    private val nutritionRepo: INutritionRepo,
+    private val restRepo: IRestRepo
 ): ViewModel() {
     var uiState by mutableStateOf(ActivityUiState())
         private set
 
     init {
-
-        viewModelScope.launch {
-            nutritionRepo.getAllLogs.collect { logs ->
-                uiState = uiState.copy(
-                    currentLogs = logs
-                )
-            }
-        }
+        observeData()
 
         viewModelScope.launch {
             uiState = uiState.copy(
@@ -44,28 +39,20 @@ class ActivityViewModel @Inject constructor(
     fun onActivityClick(activityType: ActivityType) {
         when(activityType) {
             ActivityType.Nutrition -> startNutritionWizard()
-            ActivityType.Rest -> TODO()
-            ActivityType.Diapers -> TODO()
+            ActivityType.Rest -> startRestWizard()
+            ActivityType.Diapers -> startDiaperWizard()
         }
     }
 
-    fun onCloseActivity(activityType: ActivityType) {
-        when(activityType) {
-            ActivityType.Nutrition -> {
-                uiState = uiState.copy(
-                    showNutritionWizard = false
-                )
-            }
-            ActivityType.Rest -> TODO()
-            ActivityType.Diapers -> TODO()
-        }
+    fun onCloseActivity() {
+        uiState = uiState.copy(
+            showNutritionWizard = false,
+            showRestWizard = false,
+            showDiapersWizard = false,
+        )
     }
 
-    fun addNutritionBreastLog(
-        start: Long,
-        end: Long,
-        breastSide: BreastSide
-    ) {
+    fun addNutritionBreastLog(start: Long, end: Long, breastSide: BreastSide) {
         viewModelScope.launch {
             nutritionRepo.addBreastLog(
                 command = AddBreastLogCommand(
@@ -77,12 +64,7 @@ class ActivityViewModel @Inject constructor(
         }
     }
 
-    fun addNutritionBottleLog(
-        start: Long,
-        end: Long,
-        bottleType: BottleType,
-        milliliters: Int
-    ) {
+    fun addNutritionBottleLog(start: Long, end: Long, bottleType: BottleType, milliliters: Int) {
         viewModelScope.launch {
             nutritionRepo.addBottleLog(
                 command = AddBottleLogCommand(
@@ -95,9 +77,51 @@ class ActivityViewModel @Inject constructor(
         }
     }
 
+    fun addRestLog(start: Long, end: Long) {
+        viewModelScope.launch {
+            restRepo.addLog(start = start, end = end)
+        }
+    }
+
     private fun startNutritionWizard() {
         uiState = uiState.copy(
-            showNutritionWizard = true
+            showNutritionWizard = true,
+            showDiapersWizard = false,
+            showRestWizard = false
         )
+    }
+
+    private fun startRestWizard() {
+        uiState = uiState.copy(
+            showNutritionWizard = false,
+            showDiapersWizard = false,
+            showRestWizard = true
+        )
+    }
+
+    private fun startDiaperWizard() {
+        uiState = uiState.copy(
+            showNutritionWizard = false,
+            showDiapersWizard = true,
+            showRestWizard = false
+        )
+    }
+
+    private fun observeData() {
+        viewModelScope.launch {
+            nutritionRepo.getAllLogs.collect { logs ->
+                uiState = uiState.copy(
+                    nutritionLogs = logs
+                )
+            }
+        }
+
+        viewModelScope.launch {
+            restRepo.getAllLogs.collect { logs ->
+                uiState = uiState.copy(
+                    restLogs = logs
+                )
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package nl.paisan.babytracker.ui.screen.activity
 
 import nl.paisan.babytracker.data.entities.NutritionLogWithDetails
+import nl.paisan.babytracker.data.entities.RestLog
 import nl.paisan.babytracker.domain.enums.BottleType
 import nl.paisan.babytracker.domain.enums.BreastSide
 
@@ -10,13 +11,17 @@ data class ActivityUiState(
     val showRestWizard: Boolean = false,
     val showDiapersWizard: Boolean = false,
     val nutritionState: NutritionState = NutritionState(),
-    val currentLogs: List<NutritionLogWithDetails> = listOf()
+    val nutritionLogs: List<NutritionLogWithDetails> = listOf(),
+    val restLogs: List<RestLog> = listOf(),
 ) {
     val lastBreastLog: NutritionLogWithDetails? get() =
-        currentLogs.lastOrNull { it.breastLog != null }
+        nutritionLogs.lastOrNull { it.breastLog != null }
 
     val lastBottleLog: NutritionLogWithDetails? get() =
-        currentLogs.lastOrNull() { it.bottleLog != null }
+        nutritionLogs.lastOrNull() { it.bottleLog != null }
+
+    val lastRestLog: RestLog? get() =
+        restLogs.lastOrNull()
 }
 
 data class NutritionState(

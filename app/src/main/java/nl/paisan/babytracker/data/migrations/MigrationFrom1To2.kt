@@ -3,6 +3,9 @@ package nl.paisan.babytracker.data.migrations
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
+/**
+ * Example migration
+ */
 class MigrationFrom1To2 : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
         // Create a temporary table with the new schema
