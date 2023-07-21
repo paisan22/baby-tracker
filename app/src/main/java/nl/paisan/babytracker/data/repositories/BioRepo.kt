@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.data
+package nl.paisan.babytracker.data.repositories
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +13,7 @@ import nl.paisan.babytracker.domain.repositories.IBioRepo
 import nl.paisan.babytracker.domain.repositories.Result
 import javax.inject.Inject
 
-class BioRepository @Inject constructor(
+class BioRepo @Inject constructor(
     private val bioDao: BioDao
 ): IBioRepo {
     private val TAG = "BioRepository"

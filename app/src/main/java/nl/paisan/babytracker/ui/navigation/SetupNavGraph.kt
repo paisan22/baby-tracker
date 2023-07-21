@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import nl.paisan.babytracker.ui.layout.DefaultLayout
-import nl.paisan.babytracker.ui.screen.ActvitivyScreen
+import nl.paisan.babytracker.ui.screen.activity.ActvitivyScreen
 import nl.paisan.babytracker.ui.screen.bio.BioScreen
 
 @Composable

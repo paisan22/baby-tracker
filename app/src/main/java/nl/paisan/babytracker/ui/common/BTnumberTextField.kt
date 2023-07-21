@@ -29,7 +29,7 @@ fun BTnumberTextField(
                 .replace(",","")
                 .replace(".", "")
 
-            if(number.isNotEmpty()) {
+            if(!number.isNullOrEmpty()) {
                 onChange(number.toInt())
             }
         },

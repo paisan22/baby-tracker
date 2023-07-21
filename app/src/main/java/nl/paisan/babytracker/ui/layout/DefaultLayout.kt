@@ -41,8 +41,7 @@ fun DefaultLayout(
     ModalNavigationDrawer(
         drawerContent = {
             ModalDrawerSheet {
-            Text("Baby Tracker", modifier = Modifier.padding(16.dp))
-            Divider()
+            Text("Add data", modifier = Modifier.padding(16.dp))
                 items.forEach { item ->
                     NavigationDrawerItem(
                         label = { Text(text = item) },
@@ -53,15 +52,16 @@ fun DefaultLayout(
                             navHostController.navigate(route = item)
                         },
                         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
-
                     )
                 }
+                Divider()
             } },
         gesturesEnabled = true,
         content = {
             Scaffold(
                 topBar = {
-                    TopAppBar(title = { Text(text = screen)})
+
+                    TopAppBar(title = { Text(text = "$screen >>") })
                 }
             ) { contentPadding ->
                 Column(modifier = Modifier.padding(contentPadding)) {

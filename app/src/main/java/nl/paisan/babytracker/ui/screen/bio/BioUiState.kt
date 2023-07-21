@@ -15,7 +15,7 @@ data class BioUiState(
     val id: Int? = 0,
     val name: String = "",
     val birthday: Long? = null,
-    val gender: Gender? = null,
+    val gender: Gender = Gender.Boy,
     val weight: Int? = null,
     val length: Int? = null,
 )

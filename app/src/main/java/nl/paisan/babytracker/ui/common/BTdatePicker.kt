@@ -52,9 +52,9 @@ fun BTdatePicker(
         },
         leadingIcon = {
             Icon(
-                Icons.Filled.DateRange,
+                imageVector = Icons.Filled.DateRange,
                 contentDescription = "Localized description",
-                Modifier.size(AssistChipDefaults.IconSize)
+                modifier = Modifier.size(AssistChipDefaults.IconSize)
             )
         }
     )
