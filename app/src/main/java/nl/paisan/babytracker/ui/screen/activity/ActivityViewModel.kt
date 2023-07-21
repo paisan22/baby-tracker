@@ -6,14 +6,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import nl.paisan.babytracker.domain.commands.AddBottleLogCommand
 import nl.paisan.babytracker.domain.commands.AddBreastLogCommand
 import nl.paisan.babytracker.domain.enums.ActivityType
 import nl.paisan.babytracker.domain.enums.BottleType
 import nl.paisan.babytracker.domain.enums.BreastSide
+import nl.paisan.babytracker.domain.enums.DiaperType
+import nl.paisan.babytracker.domain.repositories.IDiaperRepo
 import nl.paisan.babytracker.domain.repositories.INutritionRepo
 import nl.paisan.babytracker.domain.repositories.IRestRepo
 import javax.inject.Inject
@@ -21,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
     private val nutritionRepo: INutritionRepo,
-    private val restRepo: IRestRepo
+    private val restRepo: IRestRepo,
+    private val diaperRepo: IDiaperRepo
 ): ViewModel() {
     var uiState by mutableStateOf(ActivityUiState())
         private set
@@ -83,6 +84,16 @@ class ActivityViewModel @Inject constructor(
         }
     }
 
+    fun addDiaperLog(start: Long, type: DiaperType, note: String?) {
+        viewModelScope.launch {
+            diaperRepo.addDiaperLog(
+                start = start,
+                type = type,
+                note = note
+            )
+        }
+    }
+
     private fun startNutritionWizard() {
         uiState = uiState.copy(
             showNutritionWizard = true,
@@ -120,6 +131,14 @@ class ActivityViewModel @Inject constructor(
             restRepo.getAllLogs.collect { logs ->
                 uiState = uiState.copy(
                     restLogs = logs
+                )
+            }
+        }
+
+        viewModelScope.launch {
+            diaperRepo.getAllLogs.collect { logs ->
+                uiState = uiState.copy(
+                    diaperLogs = logs
                 )
             }
         }

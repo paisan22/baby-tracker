@@ -20,7 +20,7 @@ fun WizardStepCard(onClick: () -> Unit, text: String) {
         Box(
             Modifier
                 .fillMaxWidth()
-                .height(150.dp)) {
+                .height(120.dp)) {
             Text(text, Modifier.align(Alignment.Center))
         }
     }

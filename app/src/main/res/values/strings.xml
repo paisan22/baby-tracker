@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BabyTracker</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">BabyTracker</string>
     <string name="title_activity_bio_screen">BioScreen</string>
     <string name="label_name">Name</string>
     <string name="placeholder_example_name">Example: Alex…</string>
@@ -32,11 +32,18 @@
     <string name="noun_bottle_feeding_started_good_luck">Bottle feeding started, good luck!</string>
     <string name="action_register_milliliters">Register milliliters</string>
     <string name="noun_milliliters">Milliliters</string>
-    <string name="label_example_150">Example: 150...</string>
+    <string name="label_example_150">Example: 150…</string>
     <string name="dd_mm_yyyy_hh_mm">dd-MM-yyyy HH:mm</string>
     <string name="hh_mm_ss">HH:mm:ss</string>
     <string name="language">nl</string>
     <string name="mm_ss">mm:ss</string>
     <string name="sentence_rest_activity_started">Rest activity started!</string>
     <string name="action_activity_added">Activity added!</string>
+    <string name="noun_pee">Pee</string>
+    <string name="noun_poo">Poo</string>
+    <string name="sentence_pee_and_poo">Pee and Poo</string>
+    <string name="label_example_the_poop_is_very_soft">Example: The poop is very soft</string>
+    <string name="noun_note">Note</string>
+    <string name="noun_diaper_content">Diaper content</string>
+    <string name="sentence_no_diaper_history_yet">No diaper history yet.</string>
 </resources>

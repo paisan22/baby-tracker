@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import nl.paisan.babytracker.R
 import nl.paisan.babytracker.data.entities.RestLog
 import nl.paisan.babytracker.domain.services.getTime
+import nl.paisan.babytracker.ui.common.BTConfirmText
 import nl.paisan.babytracker.ui.common.BTtemporalData
 import nl.paisan.babytracker.ui.common.BTwizardDialog
 import nl.paisan.babytracker.ui.screen.activity.wizards.shared.WizardStep
@@ -26,71 +27,64 @@ fun RestWizard(
     var uiState by remember { mutableStateOf(RestWizardUiState()) }
     val context = LocalContext.current
 
-    BTwizardDialog(onClose = { onClose() }) {
+    BTwizardDialog(
+        onClose = { onClose() },
+        title = uiState.currentStep.title
+    ) {
         when(uiState.currentStep) {
             RestWizardSteps.Start -> {
-                val notification =
-                    stringResource(R.string.sentence_rest_activity_started)
+                WizardStep {
+                    val notification =
+                        stringResource(R.string.sentence_rest_activity_started)
+                    WizardStepCard(onClick = {
+                        uiState = uiState.copy(
+                            currentStep = RestWizardSteps.Stop,
+                            start = System.currentTimeMillis()
+                        )
 
-                WizardStep(cards = listOf<@Composable () -> Unit> (
-                    {
-                        WizardStepCard(onClick = {
-                            uiState = uiState.copy(
-                                currentStep = RestWizardSteps.Stop,
-                                start = System.currentTimeMillis()
+                        Toast
+                            .makeText(
+                                context,
+                                notification,
+                                Toast.LENGTH_SHORT
                             )
-
-                            Toast
-                                .makeText(
-                                    context,
-                                    notification,
-                                    Toast.LENGTH_SHORT
-                                )
-                                .show()
-                        }, text = "Start")
-                    }, {
-                        if(lastLog != null) {
-                            BTtemporalData(start = lastLog.start, end = lastLog.end)
-                        } else {
-                            Text(text = "You haven't registered a rest activity before.")
-                        }
+                            .show()
+                    }, text = "Start")
+                    if(lastLog != null) {
+                        BTtemporalData(start = lastLog.start, end = lastLog.end)
+                    } else {
+                        Text(text = "You haven't registered a rest activity before.")
                     }
-                ))
+                }
             }
             RestWizardSteps.Stop -> {
-                WizardStep(cards = listOf<@Composable () -> Unit> (
-                    {
-                        WizardStepCard(onClick = {
-                            uiState = uiState.copy(
-                                currentStep = RestWizardSteps.Confirm,
-                            )
-                        }, text = stringResource(R.string.action_stop))
-                    }, {
-                        val text = stringResource(R.string.action_start_time)
-                        Text(text = "$text: ${context.getTime(uiState.start?: 0L)}")
-                    }))
+                WizardStep {
+                    WizardStepCard(onClick = {
+                        uiState = uiState.copy(
+                            currentStep = RestWizardSteps.Confirm,
+                        )
+                    }, text = stringResource(R.string.action_stop))
+                    val text = stringResource(R.string.action_start_time)
+                    Text(text = "$text: ${context.getTime(uiState.start?: 0L)}")
+                }
             }
             RestWizardSteps.Confirm -> {
-                WizardStep(
-                    supportiveText = stringResource(R.string.confirm_are_you_sure),
-                    cards = listOf<@Composable () -> Unit> (
-                        {
-                            WizardStepCard(onClick = {
-                                uiState = uiState.copy(
-                                    end = System.currentTimeMillis()
-                                )
+                WizardStep {
+                    BTConfirmText()
+                    WizardStepCard(onClick = {
+                        uiState = uiState.copy(
+                            end = System.currentTimeMillis()
+                        )
 
-                                addRestLog(uiState.start!!,uiState.end!!)
+                        addRestLog(uiState.start!!,uiState.end!!)
 
-                            }, text = stringResource(R.string.yes))
-                        }, {
-                            WizardStepCard(onClick = {
-                                uiState = uiState.copy(
-                                    currentStep = RestWizardSteps.Stop,
-                                )
-                            }, text = stringResource(R.string.no))
-                        }
-                    ))
+                    }, text = stringResource(R.string.yes))
+                    WizardStepCard(onClick = {
+                        uiState = uiState.copy(
+                            currentStep = RestWizardSteps.Stop,
+                        )
+                    }, text = stringResource(R.string.no))
+                }
             }
         }
     }
@@ -103,8 +97,8 @@ private data class RestWizardUiState(
     val confirmedStop: Boolean = false,
 )
 
-private enum class RestWizardSteps {
-    Start,
-    Stop,
-    Confirm,
+private enum class RestWizardSteps(val title: String) {
+    Start("Start rest activity"),
+    Stop("Stop rest activity"),
+    Confirm("Confirm"),
 }

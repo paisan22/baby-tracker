@@ -11,9 +11,9 @@ import nl.paisan.babytracker.data.BabyTrackerDB
 import nl.paisan.babytracker.data.dao.BioDao
 import nl.paisan.babytracker.data.dao.BottleLogDao
 import nl.paisan.babytracker.data.dao.BreastLogDao
+import nl.paisan.babytracker.data.dao.DiaperLogDao
 import nl.paisan.babytracker.data.dao.NutritionLogDao
 import nl.paisan.babytracker.data.dao.RestLogDao
-import nl.paisan.babytracker.data.migrations.MigrationFrom1To2
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,6 +28,8 @@ object DaoModule {
     fun provideBottleLogDao(database: BabyTrackerDB): BottleLogDao = database.bottleLogDao()
     @Provides
     fun provideRestLogDao(database: BabyTrackerDB): RestLogDao = database.restLogDao()
+    @Provides
+    fun provideDiaperLogDao(database: BabyTrackerDB): DiaperLogDao = database.diaperLogDao()
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): BabyTrackerDB {
         val DATABASE_NAME = "baby_tracker_db"

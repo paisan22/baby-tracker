@@ -1,5 +1,6 @@
 package nl.paisan.babytracker.ui.screen.activity
 
+import nl.paisan.babytracker.data.entities.DiaperLog
 import nl.paisan.babytracker.data.entities.NutritionLogWithDetails
 import nl.paisan.babytracker.data.entities.RestLog
 import nl.paisan.babytracker.domain.enums.BottleType
@@ -13,6 +14,7 @@ data class ActivityUiState(
     val nutritionState: NutritionState = NutritionState(),
     val nutritionLogs: List<NutritionLogWithDetails> = listOf(),
     val restLogs: List<RestLog> = listOf(),
+    val diaperLogs: List<DiaperLog> = listOf()
 ) {
     val lastBreastLog: NutritionLogWithDetails? get() =
         nutritionLogs.lastOrNull { it.breastLog != null }
@@ -22,6 +24,9 @@ data class ActivityUiState(
 
     val lastRestLog: RestLog? get() =
         restLogs.lastOrNull()
+
+    val lastDiaperLog: DiaperLog? get() =
+        diaperLogs.lastOrNull()
 }
 
 data class NutritionState(

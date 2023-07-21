@@ -22,6 +22,7 @@ import nl.paisan.babytracker.R
 import nl.paisan.babytracker.domain.enums.ActivityType
 import nl.paisan.babytracker.domain.enums.BottleType
 import nl.paisan.babytracker.ui.screen.ScreenWrapper
+import nl.paisan.babytracker.ui.screen.activity.wizards.DiaperWizard
 import nl.paisan.babytracker.ui.screen.activity.wizards.NutritionWizard
 import nl.paisan.babytracker.ui.screen.activity.wizards.RestWizard
 
@@ -91,7 +92,15 @@ fun ActvitivyScreen(
             }
             
             if(vm.uiState.showDiapersWizard) {
-                Text(text = "Not implemented yet.")
+                DiaperWizard(
+                    onClose = { vm.onCloseActivity() },
+                    addDiaperLog = { start, type, note ->
+                        vm.addDiaperLog(start, type, note)
+                        vm.onCloseActivity()
+                        notifySaved(context)
+                    },
+                    lastLog = vm.uiState.lastDiaperLog
+                )
             }
         }
     }
