@@ -5,31 +5,50 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import nl.paisan.babytracker.ui.layout.DefaultLayout
-import nl.paisan.babytracker.ui.screen.activity.ActvitivyScreen
+import nl.paisan.babytracker.ui.screen.addActivity.AddActvitivyScreen
 import nl.paisan.babytracker.ui.screen.bio.BioScreen
+import nl.paisan.babytracker.ui.screen.overviewActivity.OverviewActivityScreen
 
 @Composable
 fun SetupNavGraph(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = Destinations.BIO_ROUTE
+        startDestination = Destinations.OVERVIEW_ACTIVITY_ROUTE
     ) {
         composable(
             route = Destinations.BIO_ROUTE,
             content = {
-                DefaultLayout(screen = Destinations.BIO_ROUTE, content = {
-                    BioScreen()
-                },
-                navHostController = navHostController)
+                DefaultLayout(
+                    screen = Destinations.BIO_ROUTE,
+                    navHostController = navHostController,
+                    content = {
+                        BioScreen()
+                    },
+                )
             }
         )
         composable(
-            route = Destinations.ACTIVITY_ROUTE,
+            route = Destinations.ADD_ACTIVITY_ROUTE,
             content = {
-                DefaultLayout(screen = Destinations.ACTIVITY_ROUTE, content = {
-                    ActvitivyScreen(navHostController = navHostController)
-                },
-                navHostController = navHostController)
+                DefaultLayout(
+                    screen = Destinations.ADD_ACTIVITY_ROUTE,
+                    navHostController = navHostController,
+                    content = {
+                        AddActvitivyScreen(navHostController = navHostController)
+                    },
+                )
+            }
+        )
+        composable(
+            route = Destinations.OVERVIEW_ACTIVITY_ROUTE,
+            content = {
+                DefaultLayout(
+                    screen = Destinations.OVERVIEW_ACTIVITY_ROUTE,
+                    navHostController = navHostController,
+                    content = {
+                        OverviewActivityScreen(navHostController = navHostController)
+                    },
+                )
             }
         )
     }

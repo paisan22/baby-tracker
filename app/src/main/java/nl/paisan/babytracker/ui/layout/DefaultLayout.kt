@@ -33,7 +33,7 @@ fun DefaultLayout(
     content: @Composable () -> Unit,
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val items = listOf(Destinations.BIO_ROUTE, Destinations.ACTIVITY_ROUTE)
+    val items = listOf(Destinations.BIO_ROUTE, Destinations.ADD_ACTIVITY_ROUTE, Destinations.OVERVIEW_ACTIVITY_ROUTE)
     val selectedItem = remember { mutableStateOf(screen) }
 
     val scope = rememberCoroutineScope()
@@ -41,7 +41,6 @@ fun DefaultLayout(
     ModalNavigationDrawer(
         drawerContent = {
             ModalDrawerSheet {
-            Text("Add data", modifier = Modifier.padding(16.dp))
                 items.forEach { item ->
                     NavigationDrawerItem(
                         label = { Text(text = item) },

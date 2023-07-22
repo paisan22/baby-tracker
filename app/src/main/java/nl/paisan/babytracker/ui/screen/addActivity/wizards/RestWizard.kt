@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.activity.wizards
+package nl.paisan.babytracker.ui.screen.addActivity.wizards
 
 import android.widget.Toast
 import androidx.compose.material3.Text
@@ -15,8 +15,8 @@ import nl.paisan.babytracker.domain.services.getTime
 import nl.paisan.babytracker.ui.common.BTConfirmText
 import nl.paisan.babytracker.ui.common.BTtemporalData
 import nl.paisan.babytracker.ui.common.BTwizardDialog
-import nl.paisan.babytracker.ui.screen.activity.wizards.shared.WizardStep
-import nl.paisan.babytracker.ui.screen.activity.wizards.shared.WizardStepCard
+import nl.paisan.babytracker.ui.screen.addActivity.wizards.shared.WizardStep
+import nl.paisan.babytracker.ui.screen.addActivity.wizards.shared.WizardStepCard
 
 @Composable
 fun RestWizard(

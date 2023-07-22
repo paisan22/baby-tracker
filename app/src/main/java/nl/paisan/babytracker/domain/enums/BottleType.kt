@@ -1,6 +1,6 @@
 package nl.paisan.babytracker.domain.enums
 
-enum class BottleType {
-    Formula,
-    BreastMilk
+enum class BottleType(val typeName: String) {
+    Formula("Formula"),
+    BreastMilk("Breast milk")
 }
