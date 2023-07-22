@@ -9,5 +9,5 @@ import nl.paisan.babytracker.domain.services.getDelta
 fun BTdatetimeDelta(start: Long, end: Long) {
     val context = LocalContext.current
     val delta = context.getDelta(startDate = start, endDate = end)
-    Text(text = "$delta (m/s)")
+    Text(text = "$delta (min:sec)")
 }

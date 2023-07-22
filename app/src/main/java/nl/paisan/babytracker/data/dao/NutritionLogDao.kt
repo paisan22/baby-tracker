@@ -12,6 +12,6 @@ interface NutritionLogDao {
     @Insert
     suspend fun insertNutritionLog(nutritionLog: NutritionLog): Long
 
-    @Query("SELECT * FROM nutrition_log")
+    @Query("SELECT * FROM nutrition_log ORDER BY startTime DESC")
     fun getAllNutritionLogs(): Flow<List<NutritionLogWithDetails>>
 }

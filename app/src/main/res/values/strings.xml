@@ -46,4 +46,7 @@
     <string name="noun_note">Note</string>
     <string name="noun_diaper_content">Diaper content</string>
     <string name="sentence_no_diaper_history_yet">No diaper history yet.</string>
+    <string name="action_delete">Delete</string>
+    <string name="sentence_no_extra_data_available">No extra data available</string>
+    <string name="sentence_nutrition_type_unknown">nutrition type unknown</string>
 </resources>

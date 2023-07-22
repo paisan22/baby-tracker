@@ -10,6 +10,6 @@ import nl.paisan.babytracker.data.entities.DiaperLog
 interface DiaperLogDao {
     @Insert
     suspend fun insertDiaperLog(diaperLog: DiaperLog): Long
-    @Query("SELECT * FROM diaper_log")
+    @Query("SELECT * FROM diaper_log ORDER BY start DESC")
     fun getAllDiaperLogs(): Flow<List<DiaperLog>>
 }

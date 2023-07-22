@@ -13,7 +13,7 @@ import nl.paisan.babytracker.ui.screen.overviewActivity.OverviewActivityScreen
 fun SetupNavGraph(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = Destinations.OVERVIEW_ACTIVITY_ROUTE
+        startDestination = Destinations.BIO_ROUTE
     ) {
         composable(
             route = Destinations.BIO_ROUTE,

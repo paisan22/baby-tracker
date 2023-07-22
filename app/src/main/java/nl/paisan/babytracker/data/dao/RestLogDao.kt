@@ -11,6 +11,6 @@ interface RestLogDao {
     @Insert
     suspend fun insertRestLog(restLogDao: RestLog): Long
 
-    @Query("SELECT * FROM rest_log")
+    @Query("SELECT * FROM rest_log ORDER BY start DESC")
     fun getAllRestLogs(): Flow<List<RestLog>>
 }

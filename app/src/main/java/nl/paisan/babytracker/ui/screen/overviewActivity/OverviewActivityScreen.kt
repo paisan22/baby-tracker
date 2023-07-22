@@ -1,7 +1,6 @@
 package nl.paisan.babytracker.ui.screen.overviewActivity
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -10,14 +9,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import nl.paisan.babytracker.domain.enums.ActivityType
 import nl.paisan.babytracker.ui.screen.ScreenWrapper
+import nl.paisan.babytracker.ui.screen.overviewActivity.overviews.DiaperOverview
 import nl.paisan.babytracker.ui.screen.overviewActivity.overviews.NutritionOverview
+import nl.paisan.babytracker.ui.screen.overviewActivity.overviews.RestOverview
 
 @Composable
 fun OverviewActivityScreen(
@@ -44,18 +43,10 @@ fun OverviewActivityScreen(
                     NutritionOverview(logs = vm.uiState.nutritionLogs?: listOf())
                 }
                 ActivityType.Rest -> {
-                    Text(
-                        modifier = Modifier.align(Alignment.CenterHorizontally),
-                        text = "Rest",
-                        style = MaterialTheme.typography.bodyLarge
-                    )
+                    RestOverview(logs = vm.uiState.restLogs?: listOf())
                 }
                 ActivityType.Diapers -> {
-                    Text(
-                        modifier = Modifier.align(Alignment.CenterHorizontally),
-                        text = "Diapers",
-                        style = MaterialTheme.typography.bodyLarge
-                    )
+                    DiaperOverview(logs = vm.uiState.diaperLogs?: listOf())
                 }
             }
         }
