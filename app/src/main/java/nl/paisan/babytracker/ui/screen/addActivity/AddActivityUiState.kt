@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.activity
+package nl.paisan.babytracker.ui.screen.addActivity
 
 import nl.paisan.babytracker.data.entities.DiaperLog
 import nl.paisan.babytracker.data.entities.NutritionLogWithDetails
@@ -6,7 +6,7 @@ import nl.paisan.babytracker.data.entities.RestLog
 import nl.paisan.babytracker.domain.enums.BottleType
 import nl.paisan.babytracker.domain.enums.BreastSide
 
-data class ActivityUiState(
+data class AddActivityUiState(
     val isLoading: Boolean = true,
     val showNutritionWizard: Boolean = false,
     val showRestWizard: Boolean = false,
@@ -20,7 +20,7 @@ data class ActivityUiState(
         nutritionLogs.lastOrNull { it.breastLog != null }
 
     val lastBottleLog: NutritionLogWithDetails? get() =
-        nutritionLogs.lastOrNull() { it.bottleLog != null }
+        nutritionLogs.lastOrNull { it.bottleLog != null }
 
     val lastRestLog: RestLog? get() =
         restLogs.lastOrNull()

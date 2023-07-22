@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.activity.wizards
+package nl.paisan.babytracker.ui.screen.addActivity.wizards
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -17,8 +17,8 @@ import nl.paisan.babytracker.domain.enums.DiaperType
 import nl.paisan.babytracker.ui.common.BTtemporalData
 import nl.paisan.babytracker.ui.common.BTtextField
 import nl.paisan.babytracker.ui.common.BTwizardDialog
-import nl.paisan.babytracker.ui.screen.activity.wizards.shared.WizardStep
-import nl.paisan.babytracker.ui.screen.activity.wizards.shared.WizardStepCard
+import nl.paisan.babytracker.ui.screen.addActivity.wizards.shared.WizardStep
+import nl.paisan.babytracker.ui.screen.addActivity.wizards.shared.WizardStepCard
 
 @Composable
 fun DiaperWizard(

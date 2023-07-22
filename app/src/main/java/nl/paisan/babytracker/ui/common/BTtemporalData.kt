@@ -18,13 +18,11 @@ fun BTtemporalData(start: Long, end: Long? = null, extraContent: @Composable () 
     Column(
         modifier = Modifier.wrapContentSize().padding(8.dp)
     ) {
-        Text("Last time: ${context.getDateTime(start)}")
-
+        Text("Last: ${context.getDateTime(start)}")
         end?.let { end ->
             val delta = context.getDelta(start, end)
-            Text("Duration: $delta")
+            Text("Duration: $delta (min:sec)")
         }
-
         extraContent()
     }
 }

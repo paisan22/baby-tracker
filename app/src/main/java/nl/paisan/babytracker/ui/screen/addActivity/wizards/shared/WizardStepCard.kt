@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.activity.wizards.shared
+package nl.paisan.babytracker.ui.screen.addActivity.wizards.shared
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

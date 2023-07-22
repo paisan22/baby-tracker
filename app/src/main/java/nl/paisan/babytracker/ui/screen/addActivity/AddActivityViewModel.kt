@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.activity
+package nl.paisan.babytracker.ui.screen.addActivity
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,12 +19,12 @@ import nl.paisan.babytracker.domain.repositories.IRestRepo
 import javax.inject.Inject
 
 @HiltViewModel
-class ActivityViewModel @Inject constructor(
+class AddActivityViewModel @Inject constructor(
     private val nutritionRepo: INutritionRepo,
     private val restRepo: IRestRepo,
     private val diaperRepo: IDiaperRepo
 ): ViewModel() {
-    var uiState by mutableStateOf(ActivityUiState())
+    var uiState by mutableStateOf(AddActivityUiState())
         private set
 
     init {

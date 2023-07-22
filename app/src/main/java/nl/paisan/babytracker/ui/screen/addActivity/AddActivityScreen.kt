@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.activity
+package nl.paisan.babytracker.ui.screen.addActivity
 
 import android.content.Context
 import android.widget.Toast
@@ -22,15 +22,15 @@ import nl.paisan.babytracker.R
 import nl.paisan.babytracker.domain.enums.ActivityType
 import nl.paisan.babytracker.domain.enums.BottleType
 import nl.paisan.babytracker.ui.screen.ScreenWrapper
-import nl.paisan.babytracker.ui.screen.activity.wizards.DiaperWizard
-import nl.paisan.babytracker.ui.screen.activity.wizards.NutritionWizard
-import nl.paisan.babytracker.ui.screen.activity.wizards.RestWizard
+import nl.paisan.babytracker.ui.screen.addActivity.wizards.DiaperWizard
+import nl.paisan.babytracker.ui.screen.addActivity.wizards.NutritionWizard
+import nl.paisan.babytracker.ui.screen.addActivity.wizards.RestWizard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ActvitivyScreen(
+fun AddActvitivyScreen(
     navHostController: NavHostController,
-    vm: ActivityViewModel = hiltViewModel()
+    vm: AddActivityViewModel = hiltViewModel()
 ) {
     ScreenWrapper(isLoading = vm.uiState.isLoading) {
         val activityTypes = ActivityType.values()
