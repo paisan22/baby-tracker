@@ -8,8 +8,8 @@ import nl.paisan.babytracker.data.dao.DiaperLogDao
 import nl.paisan.babytracker.data.entities.DiaperLog
 import nl.paisan.babytracker.domain.enums.DiaperType
 import nl.paisan.babytracker.domain.repositories.IDiaperRepo
-import java.lang.Exception
 import javax.inject.Inject
+import kotlin.Exception
 
 class DiaperRepo @Inject constructor(
     private val diaperLogDao: DiaperLogDao
@@ -32,6 +32,16 @@ class DiaperRepo @Inject constructor(
                 )
             } catch (e: Exception) {
                 Log.e(TAG, "add diaper log failed", e)
+            }
+        }
+    }
+
+    override suspend fun deleteLog(log: DiaperLog) {
+        withContext(Dispatchers.IO) {
+            try {
+                diaperLogDao.deleteLog(log = log)
+            } catch (e: Exception) {
+                Log.e(TAG, "delete diaper log failed", e)
             }
         }
     }
