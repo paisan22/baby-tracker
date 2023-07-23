@@ -70,4 +70,17 @@ class NutritionRepo @Inject constructor(
             }
         }
     }
+
+    override suspend fun deleteLog(log: NutritionLogWithDetails) {
+        withContext(Dispatchers.IO) {
+            try {
+                nutritionLogDao.deleteLog(log = log.nutritionLog)
+                log.bottleLog?.let { bottleLogDao.deleteLog(it) }
+                log.breastLog?.let { breastLogDao.deleteLog(it) }
+
+            } catch (e: Exception) {
+                Log.e(TAG, "delete nutrition log failed", e)
+            }
+        }
+    }
 }

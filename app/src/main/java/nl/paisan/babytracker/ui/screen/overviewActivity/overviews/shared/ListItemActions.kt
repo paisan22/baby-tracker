@@ -10,7 +10,7 @@ import nl.paisan.babytracker.R
 
 @Composable
 fun ListItemActions(onDelete: () -> Unit) {
-    IconButton(onClick = { /*TODO*/ }) {
+    IconButton(onClick = { onDelete() }) {
         Icon(
             imageVector = Icons.Filled.Delete,
             contentDescription = stringResource(R.string.action_delete)

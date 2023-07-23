@@ -11,4 +11,6 @@ interface IDiaperRepo {
         type: DiaperType,
         note: String? = null
     )
+
+    suspend fun deleteLog(log: DiaperLog)
 }

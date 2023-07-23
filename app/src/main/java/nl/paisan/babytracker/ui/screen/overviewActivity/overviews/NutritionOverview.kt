@@ -7,16 +7,25 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import nl.paisan.babytracker.R
+import nl.paisan.babytracker.data.entities.NutritionLog
 import nl.paisan.babytracker.data.entities.NutritionLogWithDetails
+import nl.paisan.babytracker.ui.common.BTconfirmDialog
 import nl.paisan.babytracker.ui.common.BTdatetime
 import nl.paisan.babytracker.ui.common.BTdatetimeDelta
 import nl.paisan.babytracker.ui.screen.overviewActivity.overviews.shared.ListItemActions
 
 @Composable
-fun NutritionOverview(logs: List<NutritionLogWithDetails> = listOf()) {
+fun NutritionOverview(
+    logs: List<NutritionLogWithDetails> = listOf(),
+    onDelete: (log: NutritionLogWithDetails) -> Unit
+) {
     Column(
         Modifier.verticalScroll(
             enabled = true,
@@ -24,13 +33,25 @@ fun NutritionOverview(logs: List<NutritionLogWithDetails> = listOf()) {
         )
     ) {
         logs.forEach { log ->
+            var showConfirmDialog by remember { mutableStateOf(false) }
+
             ListItem(
                 overlineContent = { BTdatetime(datetime = log.nutritionLog.startTime) },
                 headlineContent = { HeadlineContent(log = log) },
                 supportingContent = { SupportingContent(log = log) },
-                trailingContent = { ListItemActions(onDelete = {}) }
+                trailingContent = { ListItemActions(onDelete = { showConfirmDialog = true }) }
             )
             Divider()
+
+            if(showConfirmDialog) {
+                BTconfirmDialog(
+                    onYes = {
+                        showConfirmDialog = false
+                        onDelete(log)
+                    },
+                    onNo = { showConfirmDialog = false },
+                )
+            }
         }
     }
 }

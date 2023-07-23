@@ -31,4 +31,14 @@ class RestRepo @Inject constructor(
             }
         }
     }
+
+    override suspend fun deleteLog(log: RestLog) {
+        withContext(Dispatchers.IO) {
+            try {
+                restLogDao.deleteLog(log = log)
+            } catch (e: Exception) {
+                Log.e(TAG, "delete rest log failed", e)
+            }
+        }
+    }
 }
