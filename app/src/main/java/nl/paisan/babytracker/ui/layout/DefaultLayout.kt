@@ -33,7 +33,7 @@ fun DefaultLayout(
     content: @Composable () -> Unit,
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val items = listOf(Destinations.BIO_ROUTE, Destinations.ADD_ACTIVITY_ROUTE, Destinations.OVERVIEW_ACTIVITY_ROUTE)
+    val items = listOf(Destinations.BIO_ROUTE, Destinations.ADD_ACTIVITY_ROUTE, Destinations.ADD_WEIGHT_ROUTE, Destinations.OVERVIEW_ACTIVITY_ROUTE)
     val selectedItem = remember { mutableStateOf(screen) }
 
     val scope = rememberCoroutineScope()

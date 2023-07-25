@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import nl.paisan.babytracker.ui.layout.DefaultLayout
 import nl.paisan.babytracker.ui.screen.addActivity.AddActvitivyScreen
+import nl.paisan.babytracker.ui.screen.addWeight.AddWeightScreen
 import nl.paisan.babytracker.ui.screen.bio.BioScreen
 import nl.paisan.babytracker.ui.screen.overviewActivity.OverviewActivityScreen
 
@@ -13,7 +14,7 @@ import nl.paisan.babytracker.ui.screen.overviewActivity.OverviewActivityScreen
 fun SetupNavGraph(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = Destinations.BIO_ROUTE
+        startDestination = Destinations.ADD_WEIGHT_ROUTE
     ) {
         composable(
             route = Destinations.BIO_ROUTE,
@@ -36,6 +37,18 @@ fun SetupNavGraph(navHostController: NavHostController) {
                     content = {
                         AddActvitivyScreen(navHostController = navHostController)
                     },
+                )
+            }
+        )
+        composable(
+            route = Destinations.ADD_WEIGHT_ROUTE,
+            content = {
+                DefaultLayout(
+                    screen = Destinations.ADD_WEIGHT_ROUTE,
+                    navHostController = navHostController,
+                    content = {
+                        AddWeightScreen()
+                    }
                 )
             }
         )
