@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">BabyTracker</string>
     <string name="title_activity_main">BabyTracker</string>
-    <string name="title_activity_bio_screen">BioScreen</string>
     <string name="label_name">Name</string>
     <string name="placeholder_example_name">Example: Alex…</string>
     <string name="action_add">Add</string>
@@ -49,5 +48,4 @@
     <string name="action_delete">Delete</string>
     <string name="sentence_no_extra_data_available">No extra data available</string>
     <string name="sentence_nutrition_type_unknown">nutrition type unknown</string>
-    <string name="sentence_are_you_sure_you_want_delete_this_log">Are you sure you want delete this log?</string>
 </resources>
