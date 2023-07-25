@@ -9,6 +9,7 @@ import nl.paisan.babytracker.ui.screen.addActivity.AddActvitivyScreen
 import nl.paisan.babytracker.ui.screen.addWeight.AddWeightScreen
 import nl.paisan.babytracker.ui.screen.bio.BioScreen
 import nl.paisan.babytracker.ui.screen.overviewActivity.OverviewActivityScreen
+import nl.paisan.babytracker.ui.screen.physicalOverview.PhysicalOverviewScreen
 
 @Composable
 fun SetupNavGraph(navHostController: NavHostController) {
@@ -47,7 +48,7 @@ fun SetupNavGraph(navHostController: NavHostController) {
                     screen = Destinations.ADD_WEIGHT_ROUTE,
                     navHostController = navHostController,
                     content = {
-                        AddWeightScreen()
+                        AddWeightScreen(navHostController = navHostController)
                     }
                 )
             }
@@ -61,6 +62,19 @@ fun SetupNavGraph(navHostController: NavHostController) {
                     content = {
                         OverviewActivityScreen(navHostController = navHostController)
                     },
+                )
+            }
+        )
+
+        composable(
+            route = Destinations.OVERVIEW_PHYSICAL_ROUTE,
+            content = {
+                DefaultLayout(
+                    screen = Destinations.OVERVIEW_PHYSICAL_ROUTE,
+                    navHostController = navHostController,
+                    content = {
+                        PhysicalOverviewScreen()
+                    }
                 )
             }
         )

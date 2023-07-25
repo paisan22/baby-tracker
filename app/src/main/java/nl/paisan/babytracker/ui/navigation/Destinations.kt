@@ -5,4 +5,5 @@ object Destinations {
     const val ADD_ACTIVITY_ROUTE = "Add activity"
     const val ADD_WEIGHT_ROUTE = "Add weight"
     const val OVERVIEW_ACTIVITY_ROUTE = "Overview activities"
+    const val OVERVIEW_PHYSICAL_ROUTE = "Overview physicals"
 }

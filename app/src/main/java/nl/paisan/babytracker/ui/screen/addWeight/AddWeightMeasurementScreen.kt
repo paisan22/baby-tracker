@@ -10,12 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import nl.paisan.babytracker.ui.common.BTbutton
 import nl.paisan.babytracker.ui.common.BTconfirmDialog
 import nl.paisan.babytracker.ui.common.BTdecimalNumberTextField
+import nl.paisan.babytracker.ui.navigation.Destinations
 
 @Composable
 fun AddWeightScreen(
+    navHostController: NavHostController,
     vm: AddWeightMeasurementViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -45,6 +48,8 @@ fun AddWeightScreen(
                         "Weight measurement added!",
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    navHostController.navigate(route = Destinations.OVERVIEW_PHYSICAL_ROUTE)
                 },
                 onNo = { vm.showConfirm(show = false) }
             )
