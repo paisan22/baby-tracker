@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.addPhysicals.addWeight
+package nl.paisan.babytracker.ui.screen.addPhysicals.addLength
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -21,9 +21,9 @@ import nl.paisan.babytracker.ui.common.BTdecimalNumberTextField
 import nl.paisan.babytracker.ui.navigation.Destinations
 
 @Composable
-fun AddWeightScreen(
+fun AddLengthScreen(
     navHostController: NavHostController,
-    vm: AddWeightMeasurementViewModel = hiltViewModel()
+    vm: AddLengthViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
 
@@ -33,30 +33,30 @@ fun AddWeightScreen(
             .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(text = stringResource(R.string.sentence_enter_weight_in_kilograms))
+        Text(text = stringResource(R.string.sentence_enter_length_in_centimeters))
         BTdecimalNumberTextField(
             initialValue = null,
             onChange = { vm.onValueChanged(it) },
-            label = stringResource(R.string.noun_kilogram),
-            placeholder = stringResource(R.string.example_3_5)
+            label = "Centimeter",
+            placeholder = "Example: 51"
         )
 
         BTbutton(name = stringResource(id = R.string.action_add), onClick = { vm.showConfirm(show = true) })
 
-        if(vm.uiState.showConfirm) {
+        if(vm.uiState.showConfirmDialog) {
             BTconfirmDialog(
                 onYes = {
                     vm.showConfirm(show = false)
                     vm.onSave()
                     Toast.makeText(
                         context,
-                        context.getString(R.string.sentence_weight_measurement_added),
+                        context.getString(R.string.sentence_length_measurement_added),
                         Toast.LENGTH_SHORT
                     ).show()
 
                     navHostController.navigate(
                         route = Destinations.OVERVIEW_PHYSICAL_ROUTE
-                            .replace("{physicalType}", PhysicalType.Weight.name)
+                            .replace("{physicalType}", PhysicalType.Length.name)
                     )
                 },
                 onNo = { vm.showConfirm(show = false) }

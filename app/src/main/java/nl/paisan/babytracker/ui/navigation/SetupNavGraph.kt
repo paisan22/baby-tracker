@@ -2,8 +2,11 @@ package nl.paisan.babytracker.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import nl.paisan.babytracker.domain.enums.PhysicalType
 import nl.paisan.babytracker.ui.layout.DefaultLayout
 import nl.paisan.babytracker.ui.screen.addActivity.AddActvitivyScreen
 import nl.paisan.babytracker.ui.screen.addPhysicals.AddPhysicalsScreen
@@ -22,7 +25,8 @@ fun SetupNavGraph(navHostController: NavHostController) {
             route = Destinations.BIO_ROUTE,
             content = {
                 DefaultLayout(
-                    screen = Destinations.BIO_ROUTE,
+                    route = Destinations.BIO_ROUTE,
+                    title = "Bio",
                     navHostController = navHostController,
                     content = {
                         BioScreen()
@@ -34,7 +38,8 @@ fun SetupNavGraph(navHostController: NavHostController) {
             route = Destinations.ADD_ACTIVITY_ROUTE,
             content = {
                 DefaultLayout(
-                    screen = Destinations.ADD_ACTIVITY_ROUTE,
+                    route = Destinations.ADD_ACTIVITY_ROUTE,
+                    title = "Add Activity",
                     navHostController = navHostController,
                     content = {
                         AddActvitivyScreen(navHostController = navHostController)
@@ -46,7 +51,8 @@ fun SetupNavGraph(navHostController: NavHostController) {
             route = Destinations.ADD_PHYSICALS_ROUTE,
             content = {
                 DefaultLayout(
-                    screen = Destinations.ADD_PHYSICALS_ROUTE,
+                    route = Destinations.ADD_PHYSICALS_ROUTE,
+                    title = "Add Physical Growth",
                     navHostController = navHostController,
                     content = {
                         AddPhysicalsScreen(navHostController = navHostController)
@@ -58,7 +64,8 @@ fun SetupNavGraph(navHostController: NavHostController) {
             route = Destinations.OVERVIEW_ACTIVITY_ROUTE,
             content = {
                 DefaultLayout(
-                    screen = Destinations.OVERVIEW_ACTIVITY_ROUTE,
+                    route = Destinations.OVERVIEW_ACTIVITY_ROUTE,
+                    title = "Activity Overview",
                     navHostController = navHostController,
                     content = {
                         OverviewActivityScreen(navHostController = navHostController)
@@ -68,15 +75,23 @@ fun SetupNavGraph(navHostController: NavHostController) {
         )
         composable(
             route = Destinations.OVERVIEW_PHYSICAL_ROUTE,
-            content = {
-                DefaultLayout(
-                    screen = Destinations.OVERVIEW_PHYSICAL_ROUTE,
+            arguments = listOf(navArgument("physicalType") { type = NavType.StringType}),
+        ) { backStackEntry ->
+            val physicalTypeString = backStackEntry.arguments?.getString("physicalType")
+            val type = if(physicalTypeString != null) {
+                PhysicalType.valueOf(physicalTypeString)
+            } else {
+                PhysicalType.Weight
+            }
+
+            DefaultLayout(
+                route = Destinations.OVERVIEW_PHYSICAL_ROUTE,
+                title = "Physical Growth Overview",
                     navHostController = navHostController,
                     content = {
-                        PhysicalOverviewScreen()
+                        PhysicalOverviewScreen(physicalType = type)
                     }
                 )
-            }
-        )
+        }
     }
 }

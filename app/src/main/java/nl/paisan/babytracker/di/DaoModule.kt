@@ -12,6 +12,7 @@ import nl.paisan.babytracker.data.dao.BioDao
 import nl.paisan.babytracker.data.dao.BottleLogDao
 import nl.paisan.babytracker.data.dao.BreastLogDao
 import nl.paisan.babytracker.data.dao.DiaperLogDao
+import nl.paisan.babytracker.data.dao.LengthMeasurementDao
 import nl.paisan.babytracker.data.dao.NutritionLogDao
 import nl.paisan.babytracker.data.dao.RestLogDao
 import nl.paisan.babytracker.data.dao.WeightMeasurementDao
@@ -33,6 +34,8 @@ object DaoModule {
     fun provideDiaperLogDao(database: BabyTrackerDB): DiaperLogDao = database.diaperLogDao()
     @Provides
     fun provideWeightMeasurementDao(database: BabyTrackerDB): WeightMeasurementDao = database.weightMeasurementDao()
+    @Provides
+    fun provideLengthMeasurementDao(database: BabyTrackerDB): LengthMeasurementDao = database.lengthMeasurementDao()
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): BabyTrackerDB {
         val DATABASE_NAME = "baby_tracker_db"

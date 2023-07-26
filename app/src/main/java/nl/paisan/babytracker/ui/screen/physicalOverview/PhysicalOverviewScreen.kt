@@ -11,11 +11,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.style.TextOverflow
 import nl.paisan.babytracker.domain.enums.PhysicalType
+import nl.paisan.babytracker.ui.screen.physicalOverview.overviews.overviewLengthMeasurement.OverviewLengthMeasurementScreen
 import nl.paisan.babytracker.ui.screen.physicalOverview.overviews.overviewWeightMeasurement.OverviewWeightMeasurementScreen
 
 @Composable
-fun PhysicalOverviewScreen() {
-    var state by remember { mutableStateOf(PhysicalType.Weight) }
+fun PhysicalOverviewScreen(physicalType: PhysicalType) {
+    var state by remember { mutableStateOf(physicalType) }
     val tabs = PhysicalType.values().toList()
     
     Column {
@@ -34,7 +35,7 @@ fun PhysicalOverviewScreen() {
                 OverviewWeightMeasurementScreen()
             }
             PhysicalType.Length -> {
-                Text(text = "Not implemented yet.")
+                OverviewLengthMeasurementScreen()
             }
         }
     }
