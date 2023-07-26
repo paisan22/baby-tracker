@@ -26,6 +26,7 @@ import nl.paisan.babytracker.domain.enums.PhysicalType.values
 import nl.paisan.babytracker.ui.common.BTcardButton
 import nl.paisan.babytracker.ui.common.BTcardColumn
 import nl.paisan.babytracker.ui.screen.ScreenWrapper
+import nl.paisan.babytracker.ui.screen.addPhysicals.addLength.AddLengthScreen
 import nl.paisan.babytracker.ui.screen.addPhysicals.addWeight.AddWeightScreen
 
 @Composable
@@ -56,7 +57,7 @@ fun AddPhysicalsScreen(
             }
 
             if(vm.uiState.showLengthWizard) {
-                Text(text = "Not implemented yet")
+                AddLengthScreen(navHostController = navHostController)
             }
         }
     }

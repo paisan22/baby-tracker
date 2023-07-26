@@ -41,32 +41,39 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import nl.paisan.babytracker.domain.enums.PhysicalType
 import nl.paisan.babytracker.ui.navigation.Destinations
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultLayout(
-    screen: String,
+    route: String,
+    title: String,
     navHostController: NavHostController,
     content: @Composable () -> Unit,
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     val firstItems = listOf(
-        Pair(Destinations.BIO_ROUTE, Icons.Outlined.ChildCare)
+        MenuItem(Destinations.BIO_ROUTE, "Bio", Icons.Outlined.ChildCare)
     )
 
     val addDataItems = listOf(
-        Pair(Destinations.ADD_ACTIVITY_ROUTE, Icons.Outlined.Add),
-        Pair(Destinations.ADD_PHYSICALS_ROUTE, Icons.Outlined.Add)
+        MenuItem(Destinations.ADD_ACTIVITY_ROUTE, "Activity", Icons.Outlined.Add),
+        MenuItem(Destinations.ADD_PHYSICALS_ROUTE, "Physical", Icons.Outlined.Add),
     )
 
     val overviewDataItems = listOf(
-        Pair(Destinations.OVERVIEW_ACTIVITY_ROUTE, Icons.Outlined.List),
-        Pair(Destinations.OVERVIEW_PHYSICAL_ROUTE, Icons.Outlined.List),
+        MenuItem(Destinations.OVERVIEW_ACTIVITY_ROUTE, "Activity", Icons.Outlined.List),
+        MenuItem(
+            Destinations.OVERVIEW_PHYSICAL_ROUTE
+                .replace("{physicalType}", PhysicalType.Weight.name),
+            "Physical",
+            Icons.Outlined.List
+        ),
     )
 
-    val selectedItem = remember { mutableStateOf(screen) }
+    val selectedItem = remember { mutableStateOf(route) }
 
     val scope = rememberCoroutineScope()
 
@@ -119,7 +126,7 @@ fun DefaultLayout(
             Scaffold(
                 topBar = {
 
-                    TopAppBar(title = { Text(text = "$screen >>") })
+                    TopAppBar(title = { Text(text = "$title >>") })
                 }
             ) { contentPadding ->
                 Column(modifier = Modifier.padding(contentPadding)) {
@@ -137,7 +144,7 @@ fun DefaultLayout(
 
 @Composable
 private fun renderItems(
-    items: List<Pair<String, ImageVector>>,
+    items: List<MenuItem>,
     selectedItem: String,
     scope: CoroutineScope,
     drawerState: DrawerState,
@@ -145,17 +152,23 @@ private fun renderItems(
 ) {
     items.forEach { item ->
         NavigationDrawerItem(
-            icon = { Icon(imageVector = item.second, contentDescription = null)},
-            label = { Text(text = item.first) },
-            selected = item.first == selectedItem,
+            icon = { Icon(imageVector = item.imageVector, contentDescription = null)},
+            label = { Text(text = item.name) },
+            selected = item.route == selectedItem,
             onClick = {
                 scope.launch { drawerState.close() }
-                setSelectedItem(item.first)
+                setSelectedItem(item.route)
             },
             modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
         )
     }
 }
+
+private data class MenuItem(
+    val route: String,
+    val name: String,
+    val imageVector: ImageVector
+)
 
 @Composable
 private fun itemLabelRow(label: String) {

@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.physicalOverview.overviews.overviewWeightMeasurement
+package nl.paisan.babytracker.ui.screen.physicalOverview.overviews.overviewLengthMeasurement
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
@@ -19,8 +19,8 @@ import nl.paisan.babytracker.ui.screen.ScreenWrapper
 import nl.paisan.babytracker.ui.screen.overviewActivity.overviews.shared.ListItemActions
 
 @Composable
-fun OverviewWeightMeasurementScreen(
-    vm: OverviewWeightMeasurementViewModel = hiltViewModel()
+fun OverviewLengthMeasurementScreen(
+    vm: OverviewLengthMeasurementViewModel = hiltViewModel()
 ) {
     ScreenWrapper(isLoading = vm.uisState.isLoading) {
         Column(modifier = Modifier.verticalScroll(
@@ -32,7 +32,7 @@ fun OverviewWeightMeasurementScreen(
 
                 ListItem(
                     overlineContent = { BTdatetime(datetime = measurement.registrationDate) },
-                    headlineContent = { Text(text = "${measurement.kilogram} kg") },
+                    headlineContent = { Text(text = "${measurement.centimeter} cm") },
                     trailingContent = { ListItemActions(onDelete = { showConfirmDialog = true }) }
                 )
                 Divider()
