@@ -5,55 +5,68 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountBox
+import androidx.compose.material.icons.outlined.BabyChangingStation
+import androidx.compose.material.icons.outlined.BedroomBaby
+import androidx.compose.material.icons.outlined.Bedtime
+import androidx.compose.material.icons.outlined.Feed
+import androidx.compose.material.icons.outlined.LocalDrink
+import androidx.compose.material.icons.outlined.Restaurant
+import androidx.compose.material.icons.outlined.SportsBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import nl.paisan.babytracker.R
 import nl.paisan.babytracker.domain.enums.ActivityType
 import nl.paisan.babytracker.domain.enums.BottleType
+import nl.paisan.babytracker.ui.common.BTcardButton
 import nl.paisan.babytracker.ui.screen.ScreenWrapper
 import nl.paisan.babytracker.ui.screen.addActivity.wizards.DiaperWizard
 import nl.paisan.babytracker.ui.screen.addActivity.wizards.NutritionWizard
 import nl.paisan.babytracker.ui.screen.addActivity.wizards.RestWizard
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddActvitivyScreen(
     navHostController: NavHostController,
     vm: AddActivityViewModel = hiltViewModel()
 ) {
     ScreenWrapper(isLoading = vm.uiState.isLoading) {
-        val activityTypes = ActivityType.values()
-            .toList()
-            .map { it.name }
-
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             val context = LocalContext.current
 
-            activityTypes.forEach { activityType ->
-                Card(
-                    onClick = { vm.onActivityClick(activityType = ActivityType.valueOf(activityType)) },
-                ) {
-                    Box(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(180.dp)) {
-                        Text(activityType, Modifier.align(Alignment.Center))
-                    }
-                }
+            val menuItems = listOf(
+                Pair(ActivityType.Nutrition, Icons.Outlined.Restaurant),
+                Pair(ActivityType.Rest, Icons.Outlined.Bedtime),
+                Pair(ActivityType.Diapers, Icons.Outlined.BabyChangingStation),
+            )
+
+            menuItems.forEach { item ->
+                BTcardButton(
+                    onClick = { vm.onActivityClick(activityType = item.first) },
+                    label = item.first.name,
+                    imageVector = item.second
+                )
             }
 
             if(vm.uiState.showNutritionWizard) {

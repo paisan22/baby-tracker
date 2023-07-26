@@ -1,6 +1,11 @@
 package nl.paisan.babytracker.ui.screen.addActivity.wizards
 
 import android.widget.Toast
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.PlayCircleOutline
+import androidx.compose.material.icons.outlined.StopCircle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,10 +18,10 @@ import nl.paisan.babytracker.R
 import nl.paisan.babytracker.data.entities.RestLog
 import nl.paisan.babytracker.domain.services.getTime
 import nl.paisan.babytracker.ui.common.BTConfirmText
+import nl.paisan.babytracker.ui.common.BTcardButton
 import nl.paisan.babytracker.ui.common.BTtemporalData
 import nl.paisan.babytracker.ui.common.BTwizardDialog
-import nl.paisan.babytracker.ui.screen.addActivity.wizards.shared.WizardStep
-import nl.paisan.babytracker.ui.screen.addActivity.wizards.shared.WizardStepCard
+import nl.paisan.babytracker.ui.common.BTcardColumn
 
 @Composable
 fun RestWizard(
@@ -33,57 +38,69 @@ fun RestWizard(
     ) {
         when(uiState.currentStep) {
             RestWizardSteps.Start -> {
-                WizardStep {
+                BTcardColumn {
                     val notification =
                         stringResource(R.string.sentence_rest_activity_started)
-                    WizardStepCard(onClick = {
-                        uiState = uiState.copy(
-                            currentStep = RestWizardSteps.Stop,
-                            start = System.currentTimeMillis()
-                        )
-
-                        Toast
-                            .makeText(
-                                context,
-                                notification,
-                                Toast.LENGTH_SHORT
+                    BTcardButton(
+                        onClick = {
+                            uiState = uiState.copy(
+                                currentStep = RestWizardSteps.Stop,
+                                start = System.currentTimeMillis()
                             )
-                            .show()
-                    }, text = "Start")
+
+                            Toast
+                                .makeText(
+                                    context,
+                                    notification,
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
+                        },
+                        label = stringResource(R.string.action_start),
+                        imageVector = Icons.Outlined.PlayCircleOutline
+                    )
                     if(lastLog != null) {
                         BTtemporalData(start = lastLog.start, end = lastLog.end)
                     } else {
-                        Text(text = "You haven't registered a rest activity before.")
+                        Text(text = stringResource(R.string.sentence_you_haven_t_registered_a_rest_activity_before))
                     }
                 }
             }
             RestWizardSteps.Stop -> {
-                WizardStep {
-                    WizardStepCard(onClick = {
-                        uiState = uiState.copy(
-                            currentStep = RestWizardSteps.Confirm,
-                        )
-                    }, text = stringResource(R.string.action_stop))
+                BTcardColumn {
+                    BTcardButton(
+                        onClick = {
+                            uiState = uiState.copy(
+                                currentStep = RestWizardSteps.Confirm,
+                            )
+                        },
+                        label = stringResource(R.string.action_stop),
+                        imageVector = Icons.Outlined.StopCircle
+                    )
                     val text = stringResource(R.string.action_start_time)
                     Text(text = "$text: ${context.getTime(uiState.start?: 0L)}")
                 }
             }
             RestWizardSteps.Confirm -> {
-                WizardStep {
+                BTcardColumn {
                     BTConfirmText()
-                    WizardStepCard(onClick = {
-                        uiState = uiState.copy(
-                            end = System.currentTimeMillis()
-                        )
+                    BTcardButton(
+                        onClick = {
+                            uiState = uiState.copy(
+                                end = System.currentTimeMillis()
+                            )
 
-                        addRestLog(uiState.start!!,uiState.end!!)
+                            addRestLog(uiState.start!!, uiState.end!!)
 
-                    }, text = stringResource(R.string.yes))
-                    WizardStepCard(onClick = {
+                        },
+                        label = stringResource(R.string.yes),
+                        imageVector = Icons.Outlined.CheckCircle
+                    )
+                    BTcardButton(onClick = {
                         uiState = uiState.copy(
                             currentStep = RestWizardSteps.Stop,
                         )
-                    }, text = stringResource(R.string.no))
+                    }, label = stringResource(R.string.no), imageVector = Icons.Outlined.Cancel)
                 }
             }
         }

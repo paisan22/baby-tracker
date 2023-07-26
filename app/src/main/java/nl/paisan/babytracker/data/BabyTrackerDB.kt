@@ -9,12 +9,14 @@ import nl.paisan.babytracker.data.dao.BreastLogDao
 import nl.paisan.babytracker.data.dao.DiaperLogDao
 import nl.paisan.babytracker.data.dao.NutritionLogDao
 import nl.paisan.babytracker.data.dao.RestLogDao
+import nl.paisan.babytracker.data.dao.WeightMeasurementDao
 import nl.paisan.babytracker.data.entities.Bio
 import nl.paisan.babytracker.data.entities.BottleLog
 import nl.paisan.babytracker.data.entities.BreastLog
 import nl.paisan.babytracker.data.entities.DiaperLog
 import nl.paisan.babytracker.data.entities.NutritionLog
 import nl.paisan.babytracker.data.entities.RestLog
+import nl.paisan.babytracker.data.entities.WeightMeasurement
 import nl.paisan.babytracker.data.mappers.GenderConverter
 
 @Database(
@@ -25,8 +27,9 @@ import nl.paisan.babytracker.data.mappers.GenderConverter
         BottleLog::class,
         RestLog::class,
         DiaperLog::class,
+        WeightMeasurement::class,
     ]
-    , version = 4)
+    , version = 1)
 @TypeConverters(GenderConverter::class)
 abstract class BabyTrackerDB : RoomDatabase() {
     abstract fun bioDao(): BioDao
@@ -35,4 +38,5 @@ abstract class BabyTrackerDB : RoomDatabase() {
     abstract fun bottleLogDao(): BottleLogDao
     abstract fun restLogDao(): RestLogDao
     abstract fun diaperLogDao(): DiaperLogDao
+    abstract fun weightMeasurementDao(): WeightMeasurementDao
 }
