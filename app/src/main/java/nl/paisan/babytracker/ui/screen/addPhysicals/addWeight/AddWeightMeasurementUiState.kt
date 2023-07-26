@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.addWeight
+package nl.paisan.babytracker.ui.screen.addPhysicals.addWeight
 
 data class AddWeightMeasurementUiState(
     val isLoading: Boolean = true,

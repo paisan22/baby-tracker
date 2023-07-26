@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.style.TextOverflow
+import nl.paisan.babytracker.domain.enums.PhysicalType
 import nl.paisan.babytracker.ui.screen.physicalOverview.overviews.overviewWeightMeasurement.OverviewWeightMeasurementScreen
 
 @Composable
@@ -37,10 +38,4 @@ fun PhysicalOverviewScreen() {
             }
         }
     }
-}
-
-
-private enum class PhysicalType {
-    Weight,
-    Length
 }

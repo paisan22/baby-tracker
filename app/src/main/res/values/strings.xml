@@ -48,4 +48,9 @@
     <string name="action_delete">Delete</string>
     <string name="sentence_no_extra_data_available">No extra data available</string>
     <string name="sentence_nutrition_type_unknown">nutrition type unknown</string>
+    <string name="sentence_you_haven_t_registered_a_rest_activity_before">You haven\'t registered a rest activity before.</string>
+    <string name="sentence_enter_weight_in_kilograms">Enter weight in kilograms:</string>
+    <string name="sentence_weight_measurement_added">Weight measurement added!</string>
+    <string name="noun_kilogram">Kilogram</string>
+    <string name="example_3_5">Example: 3.5</string>
 </resources>

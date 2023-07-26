@@ -1,4 +1,4 @@
-package nl.paisan.babytracker.ui.screen.addWeight
+package nl.paisan.babytracker.ui.screen.addPhysicals.addWeight
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
