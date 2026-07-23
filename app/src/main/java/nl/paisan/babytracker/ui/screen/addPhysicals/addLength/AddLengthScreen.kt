@@ -26,6 +26,7 @@ fun AddLengthScreen(
     vm: AddLengthViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val lengthMeasurementAddedMessage = stringResource(R.string.sentence_length_measurement_added)
 
     Column(
         modifier = Modifier
@@ -50,7 +51,7 @@ fun AddLengthScreen(
                     vm.onSave()
                     Toast.makeText(
                         context,
-                        context.getString(R.string.sentence_length_measurement_added),
+                        lengthMeasurementAddedMessage,
                         Toast.LENGTH_SHORT
                     ).show()
 

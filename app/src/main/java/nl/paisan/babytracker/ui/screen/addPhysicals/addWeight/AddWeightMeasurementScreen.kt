@@ -26,6 +26,7 @@ fun AddWeightScreen(
     vm: AddWeightMeasurementViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val weightMeasurementAddedMessage = stringResource(R.string.sentence_weight_measurement_added)
 
     Column(
         modifier = Modifier
@@ -50,7 +51,7 @@ fun AddWeightScreen(
                     vm.onSave()
                     Toast.makeText(
                         context,
-                        context.getString(R.string.sentence_weight_measurement_added),
+                        weightMeasurementAddedMessage,
                         Toast.LENGTH_SHORT
                     ).show()
 
