@@ -35,6 +35,7 @@ import nl.paisan.babytracker.ui.common.BTnumberTextField
 import nl.paisan.babytracker.ui.common.BTtemporalData
 import nl.paisan.babytracker.ui.common.BTwizardDialog
 import nl.paisan.babytracker.ui.common.BTcardColumn
+import nl.paisan.babytracker.ui.common.BTliveDuration
 
 @Composable
 fun NutritionWizard(
@@ -150,6 +151,7 @@ fun NutritionWizard(
 
                     val text = stringResource(R.string.action_start_time)
                     Text(text = "$text: ${context.getTime(uiState.start?: 0L)}")
+                    BTliveDuration(start = uiState.start ?: 0L)
                 }
             }
 
@@ -248,6 +250,7 @@ fun NutritionWizard(
 
                     val text = stringResource(R.string.action_start_time)
                     Text(text = "$text: ${context.getTime(uiState.start?: 0L)}")
+                    BTliveDuration(start = uiState.start ?: 0L)
                 }
             }
             NutritionWizardSteps.BottleConfirmStop -> {

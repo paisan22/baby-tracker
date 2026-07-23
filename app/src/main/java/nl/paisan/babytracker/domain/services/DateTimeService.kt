@@ -33,17 +33,9 @@ fun Context.getTime(datetime: Long) : String {
 }
 
 fun Context.getDelta(startDate: Long, endDate: Long): String {
-    val pattern = getString(R.string.mm_ss)
-    val language = getString(R.string.language)
+    val deltaSeconds = (endDate - startDate) / 1000
+    val minutes = deltaSeconds / 60
+    val seconds = deltaSeconds % 60
 
-    val delta = endDate - startDate
-
-    val deltaDate = Date(delta)
-    val deltaDateFormat =
-        SimpleDateFormat(
-            pattern,
-            Locale(language, language.uppercase())
-        )
-
-    return deltaDateFormat.format(deltaDate)
+    return "%02d:%02d".format(minutes, seconds)
 }
