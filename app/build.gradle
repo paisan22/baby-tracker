@@ -50,17 +50,17 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'androidx.activity:activity-compose:1.7.2'
+    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.10.0'
+    implementation 'androidx.activity:activity-compose:1.10.1'
     implementation platform('androidx.compose:compose-bom:2026.06.01')
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation platform('androidx.compose:compose-bom:2026.06.01')
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
 
     implementation "androidx.compose.ui:ui"
     implementation "androidx.compose.material:material"
@@ -84,18 +84,18 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
     // Integration with activities
-    implementation 'androidx.activity:activity-compose:1.7.2'
+    implementation 'androidx.activity:activity-compose:1.10.1'
     // Integration with ViewModels
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0'
 
-    def nav_version = "2.6.0"
+    def nav_version = "2.9.8"
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     implementation "com.google.dagger:hilt-android:2.58"
     kapt "com.google.dagger:hilt-compiler:2.58"
     implementation "androidx.hilt:hilt-navigation-compose:1.3.0"
 
-    def work_version = "2.8.1"
+    def work_version = "2.11.2"
 
     // (Java only)
     implementation "androidx.work:work-runtime:$work_version"
@@ -109,7 +109,7 @@ dependencies {
 
     // Optional: Kotlin extensions and Coroutines support
     implementation "androidx.room:room-ktx:2.8.4"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0"
 
 
 }
