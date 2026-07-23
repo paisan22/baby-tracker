@@ -1,18 +1,19 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
 }
 
 android {
     namespace 'nl.paisan.babytracker'
-    compileSdk 33
+    compileSdk 35
 
     defaultConfig {
         applicationId "nl.paisan.babytracker"
         minSdk 33
-        targetSdk 33
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -39,9 +40,6 @@ android {
     buildToolsVersion '34.0.0'
     buildFeatures {
         compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.4.6'
     }
     packagingOptions {
         resources {
@@ -93,9 +91,9 @@ dependencies {
     def nav_version = "2.6.0"
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
-    implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+    implementation "com.google.dagger:hilt-android:2.58"
+    kapt "com.google.dagger:hilt-compiler:2.58"
+    implementation "androidx.hilt:hilt-navigation-compose:1.3.0"
 
     def work_version = "2.8.1"
 
@@ -106,11 +104,11 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
     // Room dependencies
-    implementation "androidx.room:room-runtime:2.5.2"
-    kapt "androidx.room:room-compiler:2.5.2"
+    implementation "androidx.room:room-runtime:2.8.4"
+    kapt "androidx.room:room-compiler:2.8.4"
 
     // Optional: Kotlin extensions and Coroutines support
-    implementation "androidx.room:room-ktx:2.5.2"
+    implementation "androidx.room:room-ktx:2.8.4"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
 
