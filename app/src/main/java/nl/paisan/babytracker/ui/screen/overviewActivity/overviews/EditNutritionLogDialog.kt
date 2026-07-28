@@ -8,14 +8,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import nl.paisan.babytracker.R
 import nl.paisan.babytracker.data.entities.NutritionLogWithDetails
+import nl.paisan.babytracker.domain.services.localDateMillis
+import nl.paisan.babytracker.domain.services.localDateTimeMillis
 import nl.paisan.babytracker.domain.services.millisToMinutesSeconds
+import nl.paisan.babytracker.domain.services.utcMillisToYearMonthDay
 import nl.paisan.babytracker.ui.common.BTbutton
 import nl.paisan.babytracker.ui.common.BTdatePicker
 import nl.paisan.babytracker.ui.common.BTnumberTextField
 import nl.paisan.babytracker.ui.common.BTtimePicker
 import nl.paisan.babytracker.ui.common.BTwizardDialog
 import java.util.Calendar
-import java.util.TimeZone
 
 @Composable
 fun EditNutritionLogDialog(
@@ -40,10 +42,7 @@ fun EditNutritionLogDialog(
     var seconds by remember { mutableStateOf(initialSeconds) }
 
     val displayDate = remember(year, month, day) {
-        Calendar.getInstance().apply {
-            clear()
-            set(year, month, day)
-        }.timeInMillis
+        localDateMillis(year = year, month = month, day = day)
     }
 
     BTwizardDialog(
@@ -54,12 +53,10 @@ fun EditNutritionLogDialog(
             dateToPickName = stringResource(R.string.noun_date),
             currentDate = displayDate,
             onDateSelection = { utcMillis ->
-                val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
-                    timeInMillis = utcMillis
-                }
-                year = cal.get(Calendar.YEAR)
-                month = cal.get(Calendar.MONTH)
-                day = cal.get(Calendar.DAY_OF_MONTH)
+                val (newYear, newMonth, newDay) = utcMillisToYearMonthDay(utcMillis)
+                year = newYear
+                month = newMonth
+                day = newDay
             }
         )
 
@@ -90,10 +87,7 @@ fun EditNutritionLogDialog(
         BTbutton(
             name = stringResource(R.string.action_update),
             onClick = {
-                val newStart = Calendar.getInstance().apply {
-                    clear()
-                    set(year, month, day, hour, minute, 0)
-                }.timeInMillis
+                val newStart = localDateTimeMillis(year = year, month = month, day = day, hour = hour, minute = minute)
                 val newEnd = newStart + minutes * 60_000L + seconds * 1000L
 
                 onUpdate(newStart, newEnd)

@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import nl.paisan.babytracker.domain.enums.PhysicalType
 import nl.paisan.babytracker.ui.layout.DefaultLayout
 import nl.paisan.babytracker.ui.screen.addActivity.AddActvitivyScreen
+import nl.paisan.babytracker.ui.screen.addNutritionLog.AddNutritionLogScreen
 import nl.paisan.babytracker.ui.screen.addPhysicals.AddPhysicalsScreen
 import nl.paisan.babytracker.ui.screen.addPhysicals.addWeight.AddWeightScreen
 import nl.paisan.babytracker.ui.screen.bio.BioScreen
@@ -69,6 +70,19 @@ fun SetupNavGraph(navHostController: NavHostController) {
                     navHostController = navHostController,
                     content = {
                         OverviewActivityScreen(navHostController = navHostController)
+                    },
+                )
+            }
+        )
+        composable(
+            route = Destinations.ADD_NUTRITION_LOG_ROUTE,
+            content = {
+                DefaultLayout(
+                    route = Destinations.ADD_NUTRITION_LOG_ROUTE,
+                    title = "Add Nutrition Log",
+                    navHostController = navHostController,
+                    content = {
+                        AddNutritionLogScreen(navHostController = navHostController)
                     },
                 )
             }

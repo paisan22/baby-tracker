@@ -65,4 +65,9 @@
     <string name="label_example_5">Example: 5</string>
     <string name="label_example_30">Example: 30</string>
     <string name="sentence_nutrition_log_updated">Nutrition log updated!</string>
+    <string name="label_add_nutrition_log">Add nutrition log</string>
+    <string name="sentence_breast_or_bottle">Breast or bottle?</string>
+    <string name="sentence_left_or_right_breast">Left or right breast?</string>
+    <string name="sentence_formula_or_breast_milk">Formula or breast milk?</string>
+    <string name="sentence_nutrition_log_added">Nutrition log added!</string>
 </resources>
