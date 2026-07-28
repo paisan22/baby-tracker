@@ -55,4 +55,14 @@
     <string name="example_3_5">Example: 3.5</string>
     <string name="sentence_enter_length_in_centimeters">Enter length in centimeters:</string>
     <string name="sentence_length_measurement_added">Length measurement added!</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_update">Update</string>
+    <string name="label_edit_nutrition_log">Edit nutrition log</string>
+    <string name="noun_date">Date</string>
+    <string name="noun_time">Time</string>
+    <string name="noun_minutes">Minutes</string>
+    <string name="noun_seconds">Seconds</string>
+    <string name="label_example_5">Example: 5</string>
+    <string name="label_example_30">Example: 30</string>
+    <string name="sentence_nutrition_log_updated">Nutrition log updated!</string>
 </resources>

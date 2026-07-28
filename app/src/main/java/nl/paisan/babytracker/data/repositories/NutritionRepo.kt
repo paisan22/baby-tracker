@@ -83,4 +83,14 @@ class NutritionRepo @Inject constructor(
             }
         }
     }
+
+    override suspend fun updateLog(id: Long, start: Long, end: Long) {
+        withContext(Dispatchers.IO) {
+            try {
+                nutritionLogDao.updateNutritionLog(id = id, start = start, end = end)
+            } catch (e: Exception) {
+                Log.e(TAG, "update nutrition log failed", e)
+            }
+        }
+    }
 }

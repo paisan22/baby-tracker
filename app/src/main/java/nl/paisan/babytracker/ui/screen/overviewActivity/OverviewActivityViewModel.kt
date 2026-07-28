@@ -33,6 +33,12 @@ class OverviewActivityViewModel @Inject constructor(
         }
     }
 
+    fun onUpdateNutritionLog(log: NutritionLogWithDetails, start: Long, end: Long) {
+        viewModelScope.launch {
+            nutritionRepo.updateLog(id = log.nutritionLog.id, start = start, end = end)
+        }
+    }
+
     fun onDeleteRestLog(log: RestLog) {
         viewModelScope.launch {
             restRepo.deleteLog(log = log)

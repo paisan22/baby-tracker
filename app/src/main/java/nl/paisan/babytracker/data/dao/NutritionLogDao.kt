@@ -20,4 +20,7 @@ interface NutritionLogDao {
     @Transaction
     @Delete
     suspend fun deleteLog(log: NutritionLog)
+
+    @Query("UPDATE nutrition_log SET startTime = :start, endTime = :end WHERE id = :id")
+    suspend fun updateNutritionLog(id: Long, start: Long, end: Long)
 }

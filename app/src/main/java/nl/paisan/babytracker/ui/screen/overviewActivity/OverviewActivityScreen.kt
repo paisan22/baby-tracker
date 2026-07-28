@@ -52,6 +52,10 @@ fun OverviewActivityScreen(
                         onDelete = { log ->
                             vm.onDeleteNutritionLog(log = log)
                             notifyDeleted(context = context)
+                        },
+                        onUpdate = { log, start, end ->
+                            vm.onUpdateNutritionLog(log = log, start = start, end = end)
+                            notifyUpdated(context = context)
                         }
                     )
                 }
@@ -83,6 +87,14 @@ private fun notifyDeleted(context: Context) {
     Toast.makeText(
         context,
         "Log deleted!",
+        Toast.LENGTH_SHORT
+    ).show()
+}
+
+private fun notifyUpdated(context: Context) {
+    Toast.makeText(
+        context,
+        context.getString(R.string.sentence_nutrition_log_updated),
         Toast.LENGTH_SHORT
     ).show()
 }

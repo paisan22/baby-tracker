@@ -19,12 +19,12 @@ import nl.paisan.babytracker.data.entities.NutritionLogWithDetails
 import nl.paisan.babytracker.ui.common.BTconfirmDialog
 import nl.paisan.babytracker.ui.common.BTdatetime
 import nl.paisan.babytracker.ui.common.BTdatetimeDelta
-import nl.paisan.babytracker.ui.screen.overviewActivity.overviews.shared.ListItemActions
 
 @Composable
 fun NutritionOverview(
     logs: List<NutritionLogWithDetails> = listOf(),
-    onDelete: (log: NutritionLogWithDetails) -> Unit
+    onDelete: (log: NutritionLogWithDetails) -> Unit,
+    onUpdate: (log: NutritionLogWithDetails, start: Long, end: Long) -> Unit
 ) {
     Column(
         Modifier.verticalScroll(
@@ -34,12 +34,18 @@ fun NutritionOverview(
     ) {
         logs.forEach { log ->
             var showConfirmDialog by remember { mutableStateOf(false) }
+            var showEditDialog by remember { mutableStateOf(false) }
 
             ListItem(
                 overlineContent = { BTdatetime(datetime = log.nutritionLog.startTime) },
                 headlineContent = { HeadlineContent(log = log) },
                 supportingContent = { SupportingContent(log = log) },
-                trailingContent = { ListItemActions(onDelete = { showConfirmDialog = true }) }
+                trailingContent = {
+                    NutritionListItemActions(
+                        onEdit = { showEditDialog = true },
+                        onDelete = { showConfirmDialog = true }
+                    )
+                }
             )
             Divider()
 
@@ -50,6 +56,14 @@ fun NutritionOverview(
                         onDelete(log)
                     },
                     onNo = { showConfirmDialog = false },
+                )
+            }
+
+            if(showEditDialog) {
+                EditNutritionLogDialog(
+                    log = log,
+                    onUpdate = { start, end -> onUpdate(log, start, end) },
+                    onClose = { showEditDialog = false }
                 )
             }
         }

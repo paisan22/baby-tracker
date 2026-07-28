@@ -12,5 +12,6 @@ interface INutritionRepo {
     suspend fun addBreastLog(command: AddBreastLogCommand)
     suspend fun addBottleLog(command: AddBottleLogCommand)
     suspend fun deleteLog(log: NutritionLogWithDetails)
+    suspend fun updateLog(id: Long, start: Long, end: Long)
 }
 

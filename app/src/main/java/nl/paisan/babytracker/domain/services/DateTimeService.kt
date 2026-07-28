@@ -32,10 +32,12 @@ fun Context.getTime(datetime: Long) : String {
     return dateFormat.format(Date(datetime))
 }
 
-fun Context.getDelta(startDate: Long, endDate: Long): String {
-    val deltaSeconds = (endDate - startDate) / 1000
-    val minutes = deltaSeconds / 60
-    val seconds = deltaSeconds % 60
+fun millisToMinutesSeconds(deltaMillis: Long): Pair<Int, Int> {
+    val deltaSeconds = deltaMillis / 1000
+    return (deltaSeconds / 60).toInt() to (deltaSeconds % 60).toInt()
+}
 
+fun Context.getDelta(startDate: Long, endDate: Long): String {
+    val (minutes, seconds) = millisToMinutesSeconds(endDate - startDate)
     return "%02d:%02d".format(minutes, seconds)
 }
