@@ -19,11 +19,17 @@ import androidx.compose.ui.unit.dp
 import nl.paisan.babytracker.R
 import nl.paisan.babytracker.data.entities.DiaperLog
 import nl.paisan.babytracker.domain.enums.DiaperType
+import nl.paisan.babytracker.domain.services.localDateMillis
+import nl.paisan.babytracker.domain.services.localDateTimeMillis
+import nl.paisan.babytracker.domain.services.utcMillisToYearMonthDay
 import nl.paisan.babytracker.ui.common.BTcardButton
+import nl.paisan.babytracker.ui.common.BTdatePicker
 import nl.paisan.babytracker.ui.common.BTtemporalData
 import nl.paisan.babytracker.ui.common.BTtextField
+import nl.paisan.babytracker.ui.common.BTtimePicker
 import nl.paisan.babytracker.ui.common.BTwizardDialog
 import nl.paisan.babytracker.ui.common.BTcardColumn
+import java.util.Calendar
 
 @Composable
 fun DiaperWizard(
@@ -41,7 +47,6 @@ fun DiaperWizard(
                         onClick = {
                             uiState = uiState.copy(
                                 currentStep = DiaperWizardSteps.Confirm,
-                                start = System.currentTimeMillis(),
                                 type = DiaperType.Pee
                             )
                         },
@@ -53,7 +58,6 @@ fun DiaperWizard(
                         onClick = {
                             uiState = uiState.copy(
                                 currentStep = DiaperWizardSteps.Confirm,
-                                start = System.currentTimeMillis(),
                                 type = DiaperType.Poo
                             )
                         },
@@ -65,7 +69,6 @@ fun DiaperWizard(
                         onClick = {
                             uiState = uiState.copy(
                                 currentStep = DiaperWizardSteps.Confirm,
-                                start = System.currentTimeMillis(),
                                 type = DiaperType.PooAndPee
                             )
                         },
@@ -81,7 +84,25 @@ fun DiaperWizard(
                         placeholder = stringResource(R.string.label_example_the_poop_is_very_soft),
                         label = stringResource(R.string.noun_note),
                     )
-                    
+
+                    BTdatePicker(
+                        dateToPickName = stringResource(R.string.noun_date),
+                        currentDate = localDateMillis(year = uiState.year, month = uiState.month, day = uiState.day),
+                        onDateSelection = { utcMillis ->
+                            val (year, month, day) = utcMillisToYearMonthDay(utcMillis)
+                            uiState = uiState.copy(year = year, month = month, day = day)
+                        }
+                    )
+
+                    BTtimePicker(
+                        timeToPickName = stringResource(R.string.noun_time),
+                        currentHour = uiState.hour,
+                        currentMinute = uiState.minute,
+                        onTimeSelection = { hour, minute ->
+                            uiState = uiState.copy(hour = hour, minute = minute)
+                        }
+                    )
+
                     lastLog?.let { log ->
                         BTtemporalData(start = log.start) {
                             val prefix = stringResource(R.string.noun_diaper_content)
@@ -100,8 +121,16 @@ fun DiaperWizard(
                 BTcardColumn {
                     BTcardButton(
                         onClick = {
+                            val start = localDateTimeMillis(
+                                year = uiState.year,
+                                month = uiState.month,
+                                day = uiState.day,
+                                hour = uiState.hour,
+                                minute = uiState.minute
+                            )
+
                             addDiaperLog(
-                                uiState.start!!,
+                                start,
                                 uiState.type!!,
                                 uiState.note
                             )
@@ -126,7 +155,11 @@ fun DiaperWizard(
 
 private data class DiaperWizardUiState(
     val currentStep: DiaperWizardSteps = DiaperWizardSteps.Save,
-    val start: Long? = null,
+    val year: Int = Calendar.getInstance().get(Calendar.YEAR),
+    val month: Int = Calendar.getInstance().get(Calendar.MONTH),
+    val day: Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
+    val hour: Int = Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
+    val minute: Int = Calendar.getInstance().get(Calendar.MINUTE),
     val type: DiaperType? = null,
     val note: String? = null,
     val confirmedStop: Boolean = false,
