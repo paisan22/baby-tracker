@@ -19,4 +19,12 @@ gradle-app.setting
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
-/.idea/modules/app/BabyTracker.app.iml
+
+# IDE project state - entirely local/machine-specific, churns constantly
+.idea/
+
+# Local SDK path - machine-specific, must never be committed (see file's own header)
+local.properties
+
+# Kotlin/Gradle incremental compilation cache
+.kotlin/
