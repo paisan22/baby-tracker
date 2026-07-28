@@ -16,17 +16,19 @@ data class AddActivityUiState(
     val restLogs: List<RestLog> = listOf(),
     val diaperLogs: List<DiaperLog> = listOf()
 ) {
+    // nutritionLogs/restLogs/diaperLogs are already ordered newest-first (DAO queries are ORDER BY ... DESC),
+    // so the most recent entry is the first element, not the last.
     val lastBreastLog: NutritionLogWithDetails? get() =
-        nutritionLogs.lastOrNull { it.breastLog != null }
+        nutritionLogs.firstOrNull { it.breastLog != null }
 
     val lastBottleLog: NutritionLogWithDetails? get() =
-        nutritionLogs.lastOrNull { it.bottleLog != null }
+        nutritionLogs.firstOrNull { it.bottleLog != null }
 
     val lastRestLog: RestLog? get() =
-        restLogs.lastOrNull()
+        restLogs.firstOrNull()
 
     val lastDiaperLog: DiaperLog? get() =
-        diaperLogs.lastOrNull()
+        diaperLogs.firstOrNull()
 }
 
 data class NutritionState(
