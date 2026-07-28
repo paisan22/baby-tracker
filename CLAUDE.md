@@ -68,3 +68,7 @@ The app follows an MVVM + repository pattern with a clear data/domain/ui/di laye
 ### ViewModel convention
 
 ViewModels are constructor-injected with domain repository interfaces (never DAOs or concrete repos directly), hold a single `UiState` data class via `mutableStateOf` with a private setter, and mutate it with `uiState = uiState.copy(...)`. Writes go through `viewModelScope.launch { repo.someSuspendFn(...) }`.
+
+### Out of Scope
+- git commit changes
+- devices tests
