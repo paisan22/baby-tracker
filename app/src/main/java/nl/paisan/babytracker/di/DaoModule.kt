@@ -16,6 +16,8 @@ import nl.paisan.babytracker.data.dao.LengthMeasurementDao
 import nl.paisan.babytracker.data.dao.NutritionLogDao
 import nl.paisan.babytracker.data.dao.RestLogDao
 import nl.paisan.babytracker.data.dao.WeightMeasurementDao
+import nl.paisan.babytracker.data.migrations.MigrationFrom1To2
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -37,6 +39,7 @@ object DaoModule {
     @Provides
     fun provideLengthMeasurementDao(database: BabyTrackerDB): LengthMeasurementDao = database.lengthMeasurementDao()
     @Provides
+    @Singleton
     fun provideDatabase(@ApplicationContext context: Context): BabyTrackerDB {
         val DATABASE_NAME = "baby_tracker_db"
 
@@ -45,9 +48,9 @@ object DaoModule {
             BabyTrackerDB::class.java,
             DATABASE_NAME,
         )
-//            .addMigrations(
-//                MigrationFrom1To2(),
-//            )
+            .addMigrations(
+                MigrationFrom1To2(),
+            )
             .build()
     }
 }
