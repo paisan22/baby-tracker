@@ -4,9 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import nl.paisan.babytracker.domain.commands.AddBottleLogCommand
 import nl.paisan.babytracker.domain.commands.AddBreastLogCommand
 import nl.paisan.babytracker.domain.enums.BottleType
@@ -54,7 +52,7 @@ class AddNutritionLogViewModel @Inject constructor(
         uiState = uiState.copy(seconds = value)
     }
 
-    fun onAdd() {
+    suspend fun onAdd() {
         val start = localDateTimeMillis(
             year = uiState.year,
             month = uiState.month,
@@ -64,25 +62,23 @@ class AddNutritionLogViewModel @Inject constructor(
         )
         val end = start + (uiState.minutes ?: 0) * 60_000L + (uiState.seconds ?: 0) * 1000L
 
-        viewModelScope.launch {
-            when (uiState.nutritionType) {
-                NutritionType.Breast -> nutritionRepo.addBreastLog(
-                    AddBreastLogCommand(
-                        start = start,
-                        end = end,
-                        breastSide = uiState.breastSide ?: return@launch
-                    )
+        when (uiState.nutritionType) {
+            NutritionType.Breast -> nutritionRepo.addBreastLog(
+                AddBreastLogCommand(
+                    start = start,
+                    end = end,
+                    breastSide = uiState.breastSide ?: return
                 )
-                NutritionType.Bottle -> nutritionRepo.addBottleLog(
-                    AddBottleLogCommand(
-                        start = start,
-                        end = end,
-                        bottleType = uiState.bottleType ?: return@launch,
-                        millimeters = uiState.milliliters ?: return@launch
-                    )
+            )
+            NutritionType.Bottle -> nutritionRepo.addBottleLog(
+                AddBottleLogCommand(
+                    start = start,
+                    end = end,
+                    bottleType = uiState.bottleType ?: return,
+                    millimeters = uiState.milliliters ?: return
                 )
-                null -> return@launch
-            }
+            )
+            null -> return
         }
     }
 }

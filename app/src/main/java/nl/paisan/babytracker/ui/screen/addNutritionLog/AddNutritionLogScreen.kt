@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.launch
 import nl.paisan.babytracker.R
 import nl.paisan.babytracker.domain.enums.BottleType
 import nl.paisan.babytracker.domain.enums.BreastSide
@@ -28,6 +30,8 @@ fun AddNutritionLogScreen(
     navHostController: NavHostController,
     vm: AddNutritionLogViewModel = hiltViewModel()
 ) {
+    val scope = rememberCoroutineScope()
+
     ScreenWrapper(isLoading = vm.uiState.isLoading) {
         Column(
             modifier = Modifier
@@ -123,8 +127,10 @@ fun AddNutritionLogScreen(
                 name = stringResource(R.string.action_add),
                 enabled = vm.uiState.canAdd,
                 onClick = {
-                    vm.onAdd()
-                    navHostController.popBackStack()
+                    scope.launch {
+                        vm.onAdd()
+                        navHostController.popBackStack()
+                    }
                 }
             )
         }
