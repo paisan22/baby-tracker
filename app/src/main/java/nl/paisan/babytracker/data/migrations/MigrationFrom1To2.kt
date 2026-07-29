@@ -4,27 +4,15 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 /**
- * Example migration
+ * Adds indices on the columns every overview screen sorts/queries by
+ * (previously unindexed, causing a full table scan + sort on every read).
  */
 class MigrationFrom1To2 : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        // Create a temporary table with the new schema
-        database.execSQL("CREATE TABLE bio_new (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "name TEXT NOT NULL, " +
-                "birthday INTEGER, " +
-                "gender TEXT, " +
-                "firstLength REAL, " +
-                "firstWeight REAL" +
-                ")")
-
-        // Copy the existing data to the temporary table
-        database.execSQL("INSERT INTO bio_new (id, name) SELECT id, name FROM bio")
-
-        // Remove the old table
-        database.execSQL("DROP TABLE bio")
-
-        // Rename the temporary table to the original table name
-        database.execSQL("ALTER TABLE bio_new RENAME TO bio")
+        database.execSQL("CREATE INDEX IF NOT EXISTS index_nutrition_log_startTime ON nutrition_log(startTime)")
+        database.execSQL("CREATE INDEX IF NOT EXISTS index_rest_log_start ON rest_log(start)")
+        database.execSQL("CREATE INDEX IF NOT EXISTS index_diaper_log_start ON diaper_log(start)")
+        database.execSQL("CREATE INDEX IF NOT EXISTS index_weight_measurement_registrationDate ON weight_measurement(registrationDate)")
+        database.execSQL("CREATE INDEX IF NOT EXISTS index_length_measurement_registrationDate ON length_measurement(registrationDate)")
     }
 }

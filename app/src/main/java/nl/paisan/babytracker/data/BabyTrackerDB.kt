@@ -32,7 +32,7 @@ import nl.paisan.babytracker.data.mappers.GenderConverter
         WeightMeasurement::class,
         LengthMeasurement::class,
     ]
-    , version = 1)
+    , version = 2)
 @TypeConverters(GenderConverter::class)
 abstract class BabyTrackerDB : RoomDatabase() {
     abstract fun bioDao(): BioDao
