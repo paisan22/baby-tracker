@@ -1,6 +1,7 @@
 package nl.paisan.babytracker.ui.screen.physicalOverview
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -10,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.Modifier
 import nl.paisan.babytracker.domain.enums.PhysicalType
 import nl.paisan.babytracker.ui.screen.physicalOverview.overviews.overviewLengthMeasurement.OverviewLengthMeasurementScreen
 import nl.paisan.babytracker.ui.screen.physicalOverview.overviews.overviewWeightMeasurement.OverviewWeightMeasurementScreen
@@ -18,8 +20,8 @@ import nl.paisan.babytracker.ui.screen.physicalOverview.overviews.overviewWeight
 fun PhysicalOverviewScreen(physicalType: PhysicalType) {
     var state by remember { mutableStateOf(physicalType) }
     val tabs = PhysicalType.values().toList()
-    
-    Column {
+
+    Column(Modifier.fillMaxSize()) {
         TabRow(selectedTabIndex = state.ordinal) {
             tabs.forEachIndexed { index, title ->
                 Tab(
@@ -29,13 +31,13 @@ fun PhysicalOverviewScreen(physicalType: PhysicalType) {
                 )
             }
         }
-        
+
         when(state) {
             PhysicalType.Weight -> {
-                OverviewWeightMeasurementScreen()
+                OverviewWeightMeasurementScreen(modifier = Modifier.weight(1f))
             }
             PhysicalType.Length -> {
-                OverviewLengthMeasurementScreen()
+                OverviewLengthMeasurementScreen(modifier = Modifier.weight(1f))
             }
         }
     }

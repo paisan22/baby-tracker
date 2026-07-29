@@ -47,7 +47,7 @@ fun OverviewActivityScreen(
         val context = LocalContext.current
 
         Box(Modifier.fillMaxSize()) {
-            Column {
+            Column(Modifier.fillMaxSize()) {
                 TabRow(selectedTabIndex = state.ordinal) {
                     tabs.forEachIndexed { index, title ->
                         Tab(
@@ -60,6 +60,7 @@ fun OverviewActivityScreen(
                 when(state) {
                     ActivityType.Nutrition -> {
                         NutritionOverview(
+                            modifier = Modifier.weight(1f),
                             logs = vm.uiState.nutritionLogs ?: listOf(),
                             onDelete = { log ->
                                 vm.onDeleteNutritionLog(log = log)
@@ -73,6 +74,7 @@ fun OverviewActivityScreen(
                     }
                     ActivityType.Rest -> {
                         RestOverview(
+                            modifier = Modifier.weight(1f),
                             logs = vm.uiState.restLogs ?: listOf(),
                             onDelete = { log ->
                                 vm.onDeleteRestLog(log = log)
@@ -82,6 +84,7 @@ fun OverviewActivityScreen(
                     }
                     ActivityType.Diapers -> {
                         DiaperOverview(
+                            modifier = Modifier.weight(1f),
                             logs = vm.uiState.diaperLogs ?: listOf(),
                             onDelete = { log ->
                                 vm.onDeleteDiaperLog(log = log)

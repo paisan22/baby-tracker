@@ -1,8 +1,7 @@
 package nl.paisan.babytracker.ui.screen.physicalOverview.overviews.overviewWeightMeasurement
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
@@ -20,14 +19,12 @@ import nl.paisan.babytracker.ui.screen.overviewActivity.overviews.shared.ListIte
 
 @Composable
 fun OverviewWeightMeasurementScreen(
+    modifier: Modifier = Modifier,
     vm: OverviewWeightMeasurementViewModel = hiltViewModel()
 ) {
     ScreenWrapper(isLoading = vm.uisState.isLoading) {
-        Column(modifier = Modifier.verticalScroll(
-            enabled = true,
-            state = rememberScrollState()
-        )) {
-            vm.uisState.measurements.forEach { measurement ->
+        LazyColumn(modifier = modifier) {
+            items(vm.uisState.measurements, key = { it.id }) { measurement ->
                 var showConfirmDialog by remember { mutableStateOf(false) }
 
                 ListItem(

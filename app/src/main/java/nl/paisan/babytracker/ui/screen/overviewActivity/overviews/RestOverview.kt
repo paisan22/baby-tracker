@@ -1,8 +1,7 @@
 package nl.paisan.babytracker.ui.screen.overviewActivity.overviews
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
@@ -21,15 +20,15 @@ import nl.paisan.babytracker.ui.common.BTdatetimeDelta
 import nl.paisan.babytracker.ui.screen.overviewActivity.overviews.shared.ListItemActions
 
 @Composable
-fun RestOverview(logs: List<RestLog> = listOf(), onDelete: (log: RestLog) -> Unit) {
-    Column(
-        Modifier.verticalScroll(
-            enabled = true,
-            state = rememberScrollState()
-        )
-    ) {
-        val context = LocalContext.current
-        logs.forEach { log ->
+fun RestOverview(
+    modifier: Modifier = Modifier,
+    logs: List<RestLog> = listOf(),
+    onDelete: (log: RestLog) -> Unit
+) {
+    val context = LocalContext.current
+
+    LazyColumn(modifier = modifier) {
+        items(logs, key = { it.id }) { log ->
             var showConfirmDialog by remember { mutableStateOf(false) }
 
             ListItem(
